@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.SignUpFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/topPanel"
+        android:background="@color/purpleBackground">
+
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="Back Button"
+            app:tint="@color/white" />
+
+
+        <TextView
+            android:id="@+id/tvWelcomeBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivBack"
+            android:layout_marginTop="16dp"
+            android:text="Welcome"
+            android:layout_marginLeft="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWelcomeBack"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:maxLines="2"
+            android:text="unlock your chance to win, sign up today!"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSubtitle"
+            android:text="Name"
+            android:layout_marginTop="5pt"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/tvSubtitle"
+            android:layout_marginTop="32dp"
+            android:textSize="13dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter here"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="#9C9898" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvMobileNumber"
+            android:layout_below="@id/etName"
+            android:text="Mobile Number"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+
+        <EditText
+            android:id="@+id/etMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/tvMobileNumber"
+            android:inputType="phone"
+            android:textSize="13dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter here"
+            android:padding="16dp"
+            android:maxLength="10"
+            android:textColor="@android:color/black"
+            android:textColorHint="#9C9898" />
+
+
+        <TextView
+            android:id="@+id/btnGetOtp_mobileNumber"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etMobileNumber"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:text="Get OTP"
+            android:drawableEnd="@drawable/ic_arrow_right_1"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEmail"
+            android:layout_below="@id/btnGetOtp_mobileNumber"
+            android:text="Email ID"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/tvEmail"
+            android:textSize="13dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter here"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="#9C9898" />
+
+
+        <TextView
+            android:id="@+id/btnGetOtp_emailId"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etEmail"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:text="Get OTP"
+            android:drawableEnd="@drawable/ic_arrow_right_1"
+            android:textColor="@android:color/white" />
+
+
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnGetOtp_emailId"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#D122A5"
+            android:layout_marginEnd="10dp"
+            android:text="Sign Up" />
+
+        <Button
+            android:id="@+id/btnExistingMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnSignUp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/black"
+            android:text="Existing Member" />
+
+        <TextView
+            android:id="@+id/textinput_error"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:gravity="start|center"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:backgroundTint="@color/red"
+            android:paddingLeft="@dimen/dimen_5pt"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/rounded_edittext"
+            android:text="Mobile Number Required"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

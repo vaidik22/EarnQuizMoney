@@ -1,0 +1,16 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <style name="Base.Theme.EarnQuizMoney" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purpleBackground</item>
+        <item name="colorPrimaryVariant">@color/purpleBackground</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/purpleBackground</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
+    <style name="Theme.EarnQuizMoney" parent="Base.Theme.EarnQuizMoney" />
+</resources>

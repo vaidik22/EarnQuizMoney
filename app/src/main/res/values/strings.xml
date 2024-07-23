@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">EarnQuizMoney</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_fill_valid_mobile_number">Please fill valid mobile number</string>
+    <string name="please_enter_your_email">Please enter your email</string>
+    <string name="please_verify_otp">please Verify Otp</string>
+    <string name="otp_verified_successfully">Otp Verified Successfully</string>
+    <string name="name_required">name_required</string>
+    <string name="please_provide_mobile_number">Please provide mobile number</string>
+    <string name="please_provide_email">Please provide email</string>
+    <string name="enter_valid_email">Enter valid email</string>
+    <string name="name_required_">Name required</string>
+    <string name="please_verify_all_otp">Please Verify All OTP</string>
+    <string name="records_not_found">Records Not Found</string>
+</resources>
