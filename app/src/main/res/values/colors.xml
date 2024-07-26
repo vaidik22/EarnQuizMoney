@@ -5,4 +5,5 @@
     <color name="purpleBackground">#8E24AA</color>
     <color name="purpleButton">#AB47BC</color>
     <color name="red">#FF0000</color>
+    <color name="grey">#E5E4E2</color>
 </resources>

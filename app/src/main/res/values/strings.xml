@@ -1,16 +1,35 @@
 <resources>
     <string name="app_name">EarnQuizMoney</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="please_fill_valid_mobile_number">Please fill valid mobile number</string>
-    <string name="please_enter_your_email">Please enter your email</string>
-    <string name="please_verify_otp">please Verify Otp</string>
+    <string name="please_fill_valid_mobile_number">Please Fill Valid Mobile Number</string>
+    <string name="please_enter_your_email">Please Enter Your Email</string>
+    <string name="please_verify_otp">Please Verify Otp</string>
     <string name="otp_verified_successfully">Otp Verified Successfully</string>
-    <string name="name_required">name_required</string>
-    <string name="please_provide_mobile_number">Please provide mobile number</string>
-    <string name="please_provide_email">Please provide email</string>
-    <string name="enter_valid_email">Enter valid email</string>
-    <string name="name_required_">Name required</string>
+    <string name="name_required">Name Required</string>
+    <string name="please_provide_mobile_number">Please Provide Mobile Number</string>
+    <string name="please_provide_email">Please Provide Email</string>
+    <string name="enter_valid_email">Enter Valid Email</string>
+    <string name="name_required_">Name Required</string>
     <string name="please_verify_all_otp">Please Verify All OTP</string>
     <string name="records_not_found">Records Not Found</string>
+    <string name="live_games">Live Games</string>
+    <string name="add_money">Add Money</string>
+    <string name="wallet">Wallet</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="how_to_play">How To Play</string>
+    <string name="support">Support</string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="refer_and_earn">Refer and Earn</string>
+    <string name="logout">Logout</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="please_verify_mobile_otp">Please Verify Mobile</string>
+    <string name="please_verify_email_otp">Please Verify Email</string>
+    <string name="sign_up_successfully">Sign Up Successfull</string>
+    <string name="error_in_sign_up">Error in Sign Up</string>
+    <string name="response_body_is_null">Response body is null</string>
+    <string name="response_not_successful">Response not successful</string>
+    <string name="email_already_registered">Email Already Registered</string>
+    <string name="mobile_number_already_registered">Mobile Number Already Registered</string>
 </resources>

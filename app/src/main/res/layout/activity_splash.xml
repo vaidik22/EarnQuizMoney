@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/purpleBackground">
+    android:background="@drawable/purple_background">
 
     <ImageView
         android:id="@+id/splash_logo"

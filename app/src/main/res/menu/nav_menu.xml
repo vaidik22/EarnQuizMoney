@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+         android:checkableBehavior="single"/>
+
+    <item
+        android:id="@+id/live_games"
+        android:icon="@drawable/ic_live_games"
+        android:title="@string/live_games"/>
+    <item
+        android:id="@+id/add_money"
+        android:icon="@drawable/add_payment"
+        android:title="@string/add_money"/>
+    <item
+        android:id="@+id/Wallet"
+        android:icon="@drawable/wallet"
+        android:title="@string/wallet"/>
+    <item
+        android:id="@+id/Withdraw"
+        android:icon="@drawable/withdrawl"
+        android:title="@string/withdraw"/>
+    <item
+        android:id="@+id/how_to_play"
+        android:icon="@drawable/question_mark"
+        android:title="@string/how_to_play"/>
+    <item
+        android:id="@+id/Support"
+        android:icon="@drawable/support"
+        android:title="@string/support"/>
+    <item
+        android:id="@+id/Terms_and_Conditions"
+        android:icon="@drawable/terms_and_conditions"
+        android:title="@string/terms_and_conditions"/>
+    <item
+        android:id="@+id/Privacy_Policy"
+        android:icon="@drawable/terms_and_conditions"
+        android:title="@string/privacy_policy"/>
+    <item
+        android:id="@+id/Refer_and_Earn"
+        android:icon="@drawable/exchange"
+        android:title="@string/refer_and_earn"/>
+    <item
+        android:id="@+id/Logout"
+        android:icon="@drawable/logout"
+        android:title="@string/logout"
+        />
+
+</menu>

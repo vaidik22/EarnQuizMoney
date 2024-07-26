@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/topPanel"
-        android:background="@color/purpleBackground">
+        android:background="@drawable/purple_background">
 
 
         <ImageView
@@ -65,10 +65,10 @@
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_below="@id/tvSubtitle"
             android:layout_marginTop="32dp"
-            android:textSize="13dp"
+            android:textSize="6pt"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_edittext"
@@ -93,10 +93,10 @@
         <EditText
             android:id="@+id/etMobileNumber"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_below="@id/tvMobileNumber"
             android:inputType="phone"
-            android:textSize="13dp"
+            android:textSize="6pt"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_edittext"
@@ -136,9 +136,9 @@
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_below="@id/tvEmail"
-            android:textSize="13dp"
+            android:textSize="6pt"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_edittext"

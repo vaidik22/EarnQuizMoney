@@ -1,9 +1,15 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -70,7 +76,7 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         initView(view);
         allClick();
-        common = new Common(getActivity());
+        common = new Common((AppCompatActivity) getActivity());
         return view;
     }
 
@@ -94,7 +100,6 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                     showError(R.string.please_fill_valid_mobile_number);
                 } else {
                     callLoginApi();
-                    showOtpDialog();
                 }
             }
         });
@@ -106,6 +111,10 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                     showError(R.string.please_verify_otp);
                 } else {
                     callVerifyOtpApi();
+                    SharedPreferences preferences = getActivity().getSharedPreferences("UserSession", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("IsLoggedIn", true);
+                    editor.apply();
                 }
             }
         });
@@ -139,12 +148,20 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                     if (resp != null) {
                         if (resp.isResponse()) {
                             Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            if (otpDialog != null) {
-                                otpDialog.setOtp(resp.getOtp(), true);
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Records Not Found", Toast.LENGTH_SHORT).show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (otpDialog != null) {
+                                        otpDialog.setOtp(resp.getOtp(), true);
+                                    } else {
+                                        showOtpDialog();
+                                        otpDialog.setOtp(resp.getOtp(), true);
+                                    }
+                                }
+                            }, 1000);
 
+                        } else {
+                            showError(R.string.records_not_found);
                         }
                     } else {
                         Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
@@ -168,6 +185,7 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
         });
     }
 
+
     private void callVerifyOtpApi() {
         String mobileNumber = etMobileNumber.getText().toString().trim();
         String otp = otpDialog != null ? otpDialog.getGeneratedOtp() : "";
@@ -187,8 +205,19 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                 if (response.isSuccessful()) {
                     VerifyOtpModel resp = response.body();
                     if (resp != null) {
-                        Log.e("VerifyOtpModel", resp.toString()); // Log the entire model
+                        Log.e("VerifyOtpModel", resp.toString());
                         if (resp.isResponse()) {
+                            String userName = resp.getData().getName();
+                            String userMobile = resp.getData().getMobile();
+                            String userId = resp.getData().getId();
+
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userName", userName);
+                            editor.putString("userMobile", userMobile);
+                            editor.putString("userId", userId);
+                            editor.apply();
+                            Log.e( "UserId ssfqwf", userId);
                             Toast.makeText(getContext(), "Sign Up Successful", Toast.LENGTH_SHORT).show();
                             navigateToHome();
                         } else {

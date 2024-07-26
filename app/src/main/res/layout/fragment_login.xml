@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purpleBackground">
+        android:background="@drawable/purple_background">
 
         <!-- Back Button -->
         <ImageView
@@ -53,6 +53,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_mobile_number"
             android:layout_below="@id/tvSubtitle"
             android:text="Mobile Number"
             android:layout_marginTop="10dp"
@@ -66,20 +67,24 @@
         <EditText
             android:id="@+id/etMobileNumber"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@id/tvSubtitle"
-            android:layout_marginTop="32dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/tv_mobile_number"
+            android:layout_marginTop="3pt"
             android:layout_marginStart="10dp"
-            android:textSize="13dp"
-            android:backgroundTint="@color/white"
             android:layout_marginEnd="10dp"
+            android:textSize="6pt"
             android:background="@drawable/rounded_edittext"
             android:hint="Enter here"
             android:maxLength="10"
             android:inputType="number"
             android:padding="16dp"
             android:textColor="@android:color/black"
-            android:textColorHint="#9A9595" />
+            android:textColorHint="#9A9595"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            />
+
+
 
 
         <TextView

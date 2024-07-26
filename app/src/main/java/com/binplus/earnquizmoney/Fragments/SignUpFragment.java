@@ -1,9 +1,19 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.binplus.earnquizmoney.R.string.error_in_sign_up;
+import static com.binplus.earnquizmoney.R.string.response_body_is_null;
+import static com.binplus.earnquizmoney.R.string.response_not_successful;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -50,7 +60,7 @@ public class SignUpFragment extends Fragment {
     private String emailOtp;
 
     public SignUpFragment() {
-        // Required empty public constructor
+
     }
 
     public static SignUpFragment newInstance(String param1, String param2) {
@@ -70,7 +80,7 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         initView(view);
-        common = new Common(getActivity());
+        common = new Common((AppCompatActivity) getActivity());
         allClick();
         return view;
     }
@@ -93,7 +103,6 @@ public class SignUpFragment extends Fragment {
             if (!isValidMobileNumber(mobileNumber)) {
                 showError(R.string.please_fill_valid_mobile_number);
             } else {
-                showOtpDialog(true); // Indicate mobile OTP
                 callSignUpApiMobile();
             }
         });
@@ -123,11 +132,16 @@ public class SignUpFragment extends Fragment {
                 showError(R.string.please_provide_email);
             } else if (!isValidEmail(email)) {
                 showError(R.string.enter_valid_email);
-            } else if (!isMobileOtpVerified || !isEmailOtpVerified) {
-                showError(R.string.please_verify_all_otp);
+            } else if (!isMobileOtpVerified) {
+                showError(R.string.please_verify_mobile_otp);
+            } else if (!isEmailOtpVerified) {
+                showError(R.string.please_verify_email_otp);
             } else {
                 callSignUpApiButton();
-                navigateToHome();
+                SharedPreferences preferences = getActivity().getSharedPreferences("UserSession", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("IsLoggedIn", true);
+                editor.apply();
             }
         });
 
@@ -156,11 +170,20 @@ public class SignUpFragment extends Fragment {
                     if (resp != null) {
                         if (resp.isResponse()) {
                             Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            if (otpDialog != null) {
-                                otpDialog.setOtp(resp.getOtp(), true);
-                            }
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (otpDialog != null) {
+                                        otpDialog.setOtp(resp.getOtp(), true);
+                                    } else {
+                                        showOtpDialog(true);
+                                        otpDialog.setOtp(resp.getOtp(), true);
+                                    }
+                                }
+                            }, 1000);
+
                         } else {
-                            Toast.makeText(getContext(), "Mobile Number Already Registered", Toast.LENGTH_SHORT).show();
+                            showError(R.string.mobile_number_already_registered);
                         }
                     } else {
                         Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
@@ -201,11 +224,20 @@ public class SignUpFragment extends Fragment {
                     if (resp != null) {
                         if (resp.isResponse()) {
                             Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            if (otpDialog != null) {
-                                otpDialog.setOtp(resp.getOtp(), false);
-                            }
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (otpDialog != null) {
+                                        otpDialog.setOtp(resp.getOtp(), false);
+                                    } else {
+                                        showOtpDialog(false);
+                                        otpDialog.setOtp(resp.getOtp(), false);
+                                    }
+                                }
+                            }, 1000);
+
                         } else {
-                            Toast.makeText(getContext(), "Email Already Registered", Toast.LENGTH_SHORT).show();
+                            showError(R.string.email_already_registered);
                         }
                     } else {
                         Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
@@ -233,7 +265,11 @@ public class SignUpFragment extends Fragment {
         String email = etEmail.getText().toString().trim();
         String name = etName.getText().toString().trim();
         String mobileNumber = etMobileNumber.getText().toString().trim();
-
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userName", name);
+        editor.putString("userMobile", mobileNumber);
+        editor.apply();
         JsonObject object = new JsonObject();
         object.addProperty("name", name);
         object.addProperty("mobile", mobileNumber);
@@ -252,17 +288,17 @@ public class SignUpFragment extends Fragment {
                     SignUpModel resp = response.body();
                     if (resp != null) {
                         if (resp.isResponse()) {
-                            Toast.makeText(getContext(), "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.sign_up_successfully, Toast.LENGTH_SHORT).show();
                             navigateToHome();
                         } else {
-                            Toast.makeText(getContext(), "Error in Sign Up", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), error_in_sign_up, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), response_body_is_null, Toast.LENGTH_SHORT).show();
                         Log.e("API Response", "Response body is null");
                     }
                 } else {
-                    Toast.makeText(getContext(), "Response not successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response_not_successful, Toast.LENGTH_SHORT).show();
                     try {
                         String errorBody = response.errorBody().string();
                         Log.e("API Error", errorBody);

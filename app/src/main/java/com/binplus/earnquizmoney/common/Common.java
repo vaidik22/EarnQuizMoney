@@ -1,34 +1,40 @@
 package com.binplus.earnquizmoney.common;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.binplus.earnquizmoney.R;
-import com.binplus.earnquizmoney.retrofit.Api;
-import com.binplus.earnquizmoney.retrofit.RetrofitClient;
-
 
 public class Common {
-    Context context;
+    private AppCompatActivity activity;
+    private Context context;
 
-
-    public Common(Context context){
-        this.context=context;
-
-
+    public Common(Context context) {
+        this.context = context;
     }
 
+    public Common(AppCompatActivity activity) {
+        this.activity = activity;
+    }
 
     public void switchFragment(Fragment fragment) {
-        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
                 .addToBackStack(null).commit();
-
-
     }
 
+    public void switchFragmentHomeActivity(Fragment fragment) {
+        if (context instanceof FragmentActivity) {
+            FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.homeFragment, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    }
 }

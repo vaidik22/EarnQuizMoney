@@ -2,6 +2,7 @@ package com.binplus.earnquizmoney.initialFragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class InitialFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        common = new Common(getActivity());
+        common = new Common((AppCompatActivity) getActivity());
 
 
     }

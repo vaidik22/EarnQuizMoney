@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,6 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
         this.otpVerificationListener = listener;
     }
 
-
     public void setResendOtpListener(ResendOtpListener listener) {
         this.resendOtpListener = listener;
     }
@@ -54,12 +54,29 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
             pinView.setCursorVisible(true);
             pinView.setSelection(generatedOtp.length());
             pinView.setError(null);
+            startResendTimer();
+        } else {
+            // Post a delay to ensure that pinView is initialized
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (pinView != null) {
+                        pinView.setText(generatedOtp);
+                        pinView.requestFocus();
+                        pinView.setCursorVisible(true);
+                        pinView.setSelection(generatedOtp.length());
+                        pinView.setError(null);
+                        startResendTimer();
+                    }
+                }
+            }, 2000);
         }
-        startResendTimer();
     }
+
     public String getGeneratedOtp() {
         return generatedOtp;
     }
+
     private void verifyOtp() {
         String otpInput = pinView.getText().toString();
         if (otpInput.equals(generatedOtp)) {
@@ -86,7 +103,6 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.otp_verification_bottom_sheet, container, false);
         initView(view);
-        startResendTimer();
         allClick();
         return view;
     }
@@ -129,7 +145,9 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
     }
 
     private void startResendTimer() {
-        tvOtpTimer.setEnabled(false);
+        if (tvOtpTimer != null) {
+            tvOtpTimer.setEnabled(false);
+        }
         if (timer != null) {
             timer.cancel();
         }
@@ -141,13 +159,15 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
                 if (isAttached && timeOutSeconds > 0) {
                     getActivity().runOnUiThread(() -> {
                         timeOutSeconds--;
-                        tvOtpTimer.setText("Time remaining: " + String.format("00:%02d", timeOutSeconds));
-                        tvOtpTimer.setTextColor(Color.RED);
-                        if (timeOutSeconds <= 0) {
-                            timer.cancel();
-                            tvOtpTimer.setEnabled(true);
-                            tvOtpTimer.setText("Resend OTP");
-                            tvOtpTimer.setTextColor(Color.BLACK);
+                        if (tvOtpTimer != null) {
+                            tvOtpTimer.setText("Time remaining: " + String.format("00:%02d", timeOutSeconds));
+                            tvOtpTimer.setTextColor(Color.RED);
+                            if (timeOutSeconds <= 0) {
+                                timer.cancel();
+                                tvOtpTimer.setEnabled(true);
+                                tvOtpTimer.setText("Resend OTP");
+                                tvOtpTimer.setTextColor(Color.BLACK);
+                            }
                         }
                     });
                 } else {

@@ -2,8 +2,9 @@ package com.binplus.earnquizmoney.BaseURL;
 
 public class BaseURL {
 
-    public static String BASE_URL_IMAGE = "https://gyanmoney.anshuwap.com/";  //live url
-    public static final String BASE_URL = "https://gyanmoney.in/rest_api/";  //live url
+    public static String BASE_URL_IMAGE = "https://gyanmoney.in/";
+//    public static String BASE_URL_IMAGE = "https://gyanmoney.anshuwap.in/";
+    public static final String BASE_URL = "https://gyanmoney.in/rest_api/";
 
     public static final String SIGN_UP = BASE_URL+"sign_up";
 
@@ -20,7 +21,7 @@ public class BaseURL {
     public static String WALLET_HISTORY =BASE_URL+"get_wallet_history";
     public static String WITHDRAW_HISTORY =BASE_URL+"";
     public static String SEND_WITHDRAWAL_REQUEST =BASE_URL+"add_withdrawal_request";
-    public static String GET_CONTEST = BASE_URL+"get_contest";
+    public static final String GET_CONTEST = BASE_URL+"get_contest";
     public static String GET_DATA_KEY = "1";
     public static String GET_LEADERBOARD = "get_contest_leaderboard";
     public static String CONTEST_ID = "contest_id";
@@ -31,6 +32,6 @@ public class BaseURL {
     public static String GET_QUESTION_BY_CONTEST =BASE_URL+ "get_questions_by_contest";
     public static String ADD_POINT = "add_points";
     public static String TYPE = "type";
-    public static String GET_BANNER = BASE_URL+"get_banner";
+    public static final String GET_BANNER = BASE_URL+"get_banner";
 
 }

@@ -1,7 +1,5 @@
-<!-- res/values/styles.xml -->
 <resources>
     <style name="Base.Theme.EarnQuizMoney" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purpleBackground</item>
         <item name="colorPrimaryVariant">@color/purpleBackground</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -10,7 +8,21 @@
         <item name="colorOnBackground">@color/white</item>
         <item name="colorSurface">@color/black</item>
         <item name="colorOnSurface">@color/white</item>
+
     </style>
 
     <style name="Theme.EarnQuizMoney" parent="Base.Theme.EarnQuizMoney" />
+
+    <style name="RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="CustomButtonStyle"
+        parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#E5E4E2</item>
+        <item name="background">@drawable/button_background</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+         </style>
 </resources>
