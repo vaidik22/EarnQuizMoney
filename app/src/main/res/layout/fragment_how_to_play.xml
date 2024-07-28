@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.howToPlayFragment">
+    tools:context=".Fragments.HowToPlayFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/how_to_play"
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

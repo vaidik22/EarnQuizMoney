@@ -58,28 +58,30 @@
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/existingMemberButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:text="Existing Member"
-            android:backgroundTint="#D122A5"
+            android:background="@drawable/purple_button"
             android:textColor="@color/white"
             android:layout_above="@id/createAccountButton"
             android:layout_marginBottom="10dp"
-
+            android:textAllCaps="false"
+            android:textStyle="bold"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp" />
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:text="Create an Account"
-            android:backgroundTint="@color/black"
+            android:background="@drawable/button_background"
             android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"/>
 

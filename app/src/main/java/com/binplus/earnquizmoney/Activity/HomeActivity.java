@@ -20,13 +20,13 @@ import com.binplus.earnquizmoney.Fragments.HomePage;
 import com.binplus.earnquizmoney.Fragments.LiveGamesFragment;
 import com.binplus.earnquizmoney.Fragments.MyQuizFragment;
 import com.binplus.earnquizmoney.Fragments.ProfileFragment;
-import com.binplus.earnquizmoney.Fragments.howToPlayFragment;
-import com.binplus.earnquizmoney.Fragments.privacyPolicyFragment;
-import com.binplus.earnquizmoney.Fragments.referralFragment;
-import com.binplus.earnquizmoney.Fragments.supportFragment;
-import com.binplus.earnquizmoney.Fragments.termsAndConditionsFragment;
-import com.binplus.earnquizmoney.Fragments.walletFragment;
-import com.binplus.earnquizmoney.Fragments.withdrawFragment;
+import com.binplus.earnquizmoney.Fragments.HowToPlayFragment;
+import com.binplus.earnquizmoney.Fragments.PrivacyPolicyFragment;
+import com.binplus.earnquizmoney.Fragments.ReferralFragment;
+import com.binplus.earnquizmoney.Fragments.SupportFragment;
+import com.binplus.earnquizmoney.Fragments.TermsAndConditionsFragment;
+import com.binplus.earnquizmoney.Fragments.WalletFragment;
+import com.binplus.earnquizmoney.Fragments.WithdrawFragment;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.common.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -167,31 +167,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             title = "Add Money";
         }
         if (item.getItemId() == R.id.Wallet) {
-            selectedFragment = new walletFragment();
+            selectedFragment = new WalletFragment();
             title = "Wallet";
         }
         if (item.getItemId() == R.id.Withdraw) {
-            selectedFragment = new withdrawFragment();
+            selectedFragment = new WithdrawFragment();
             title = "Withdraw";
         }
         if (item.getItemId() == R.id.how_to_play) {
-            selectedFragment = new howToPlayFragment();
+            selectedFragment = new HowToPlayFragment();
             title = "How to Play";
         }
         if (item.getItemId() == R.id.Support) {
-            selectedFragment = new supportFragment();
+            selectedFragment = new SupportFragment();
             title = "Support";
         }
         if (item.getItemId() == R.id.Terms_and_Conditions) {
-            selectedFragment = new termsAndConditionsFragment();
+            selectedFragment = new TermsAndConditionsFragment();
             title = "Terms and Conditions";
         }
         if (item.getItemId() == R.id.Privacy_Policy) {
-            selectedFragment = new privacyPolicyFragment();
+            selectedFragment = new PrivacyPolicyFragment();
             title = "Privacy Policy";
         }
         if (item.getItemId() == R.id.Refer_and_Earn) {
-            selectedFragment = new referralFragment();
+            selectedFragment = new ReferralFragment();
             title = "Refer and Earn";
         }
         if (item.getItemId() == R.id.Logout) {

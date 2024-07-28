@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Fragments.QuizDetailFragment">
 
     <LinearLayout
@@ -15,10 +17,10 @@
         android:layout_marginBottom="10sp">
 
         <LinearLayout
-            android:layout_width="190dp"
+            android:layout_width="220dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#E5E4E2">
+            android:background="@color/white">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -53,10 +55,10 @@
 
             <TextView
                 android:id="@+id/quiz_time"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="06-08-2024 02:45 PM"
-                android:textSize="10dp"
+                android:textSize="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/red"
@@ -70,7 +72,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="#E5E4E2"
+            android:background="@color/white"
             android:paddingStart="20dp"
             android:paddingLeft="16dp">
 
@@ -179,21 +181,138 @@
 
                 <TextView
                     android:id="@+id/end_time"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="260:56:49"
                     android:textSize="10dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
                     android:background="@drawable/rounded_background_end"
                     android:padding="8dp"/>
 
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:text="Join Now"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:background="@drawable/bluebutton"
+        />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:text="Game Rules"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"
+            android:text="Testing"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Price Distribution"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:layout_marginRight="@dimen/dimen_5pt"
+                android:text="Max Fill"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/grey"
+                android:textSize="12sp"
+                android:background="@drawable/button_background"
+                android:text="Current Fill"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rank"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:text="Winnings" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rank"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/rankTextView"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/winnings"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:text="Winnings" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

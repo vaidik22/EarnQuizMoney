@@ -12,10 +12,10 @@ import com.binplus.earnquizmoney.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link termsAndConditionsFragment#newInstance} factory method to
+ * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class termsAndConditionsFragment extends Fragment {
+public class WalletFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class termsAndConditionsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public termsAndConditionsFragment() {
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class termsAndConditionsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment termsAndConditionsFragment.
+     * @return A new instance of fragment walletFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static termsAndConditionsFragment newInstance(String param1, String param2) {
-        termsAndConditionsFragment fragment = new termsAndConditionsFragment();
+    public static WalletFragment newInstance(String param1, String param2) {
+        WalletFragment fragment = new WalletFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class termsAndConditionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_terms_and_conditions, container, false);
+        return inflater.inflate(R.layout.fragment_wallet, container, false);
     }
 }

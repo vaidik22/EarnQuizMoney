@@ -99,26 +99,32 @@
             android:drawableEnd="@drawable/ic_arrow_right_1"
             android:textColor="@android:color/white" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:layout_below="@id/btnGetOtp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="10dp"
-            android:backgroundTint="#D122A5"
+            android:background="@drawable/purple_button"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_marginEnd="10dp"
             android:text="Login" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCreateAccount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:layout_below="@id/btnLogin"
             android:layout_marginTop="8dp"
             android:layout_marginStart="10dp"
+            android:background="@drawable/button_background"
             android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/black"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:text="Create an Account" />
 
 
