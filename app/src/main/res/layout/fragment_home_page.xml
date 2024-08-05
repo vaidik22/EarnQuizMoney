@@ -5,45 +5,43 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.HomePage">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardBackgroundColor="@color/white"
-        android:layout_marginTop="10sp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        app:cardElevation="20dp"
-        app:cardCornerRadius="20dp">
 
-        <com.denzcoskun.imageslider.ImageSlider
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/image_slider"
-            app:iss_period="1000"
-            app:iss_auto_cycle="true"
-            app:iss_delay="2000"
-            app:iss_corner_radius="20"
-            />
+            android:layout_height="150dp"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            app:cardElevation="20dp"
+            app:cardCornerRadius="20dp">
 
-    </androidx.cardview.widget.CardView>
+            <com.denzcoskun.imageslider.ImageSlider
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/image_slider"
+                app:iss_period="1000"
+                app:iss_auto_cycle="true"
+                app:iss_delay="2000"
+                app:iss_corner_radius="20"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upcoming Live Quiz"
-        android:gravity="start"
+        </androidx.cardview.widget.CardView>
 
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="15sp">
-    </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upcoming Live Quiz"
+            android:gravity="start"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -52,7 +50,14 @@
             android:layout_marginTop="10sp"
             android:layout_marginEnd="10sp"
             android:layout_marginStart="10sp"
-            android:orientation="vertical"
-            />
+            android:orientation="vertical"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"/>
+
 </FrameLayout>

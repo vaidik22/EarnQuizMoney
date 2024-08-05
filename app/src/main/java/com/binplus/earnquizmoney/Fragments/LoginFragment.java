@@ -1,14 +1,18 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +35,17 @@ import com.binplus.earnquizmoney.bottomsheetOtp.OtpVerificationBottomSheetDialog
 import com.binplus.earnquizmoney.common.Common;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -48,6 +63,11 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
     Button btnCreateAccount;
     Common common;
     Api apiInterface ;
+    ImageView btnGoogle, btnFacebook;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private GoogleApiClient googleApiClient;
+    private static final int RC_SIGN_IN = 1;
 
     private ArrayList<SignUpModel> mModel;
     private static final long delay = 2000;
@@ -76,9 +96,114 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         initView(view);
         allClick();
+        authGoogle();
         common = new Common((AppCompatActivity) getActivity());
         return view;
     }
+
+    private void authGoogle() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+        };
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .enableAutoManage(getActivity(), null)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(getActivity());
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Log.w(TAG, "Google sign in failed", e);
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                        String phoneNumber = user.getPhoneNumber();
+                        if (phoneNumber == null) {
+                           showError(R.string.records_not_found);
+                           Toast.makeText(getContext(),"Record not found", Toast.LENGTH_SHORT).show();
+                           Fragment fragment = new SignUpFragment();
+                           common.switchFragment(fragment);
+                        } else {
+                            checkEmailRegistered(user.getPhoneNumber());
+                        }
+
+
+                    } else {
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Toast.makeText(getContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+
+    private void checkEmailRegistered(String mobileOrEmail) {
+        JsonObject object = new JsonObject();
+        object.addProperty("mobile", mobileOrEmail);
+
+        Call<LoginModel> call = apiInterface.getLoginApi(object);
+        call.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                if (response.isSuccessful()) {
+                    LoginModel resp = response.body();
+                    if (resp != null && resp.isResponse()) {
+                        callVerifyOtpApi();
+                        navigateToHome();
+                    } else {
+                        showError(R.string.records_not_found);
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Response not successful", Toast.LENGTH_SHORT).show();
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("API Error", errorBody);
+                    } catch (Exception e) {
+                        Log.e("API Error", "Error parsing error body", e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+                Log.e("onFailure", "Yes", t);
+            }
+        });
+    }
+
+
 
     private void initView(View view) {
         btnGetOtp = view.findViewById(R.id.btnGetOtp);
@@ -87,6 +212,8 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
         textInputError = view.findViewById(R.id.textinput_error);
         btnLogin = view.findViewById(R.id.btnLogin);
         btnCreateAccount = view.findViewById(R.id.btnCreateAccount);
+        btnGoogle = view.findViewById(R.id.btnGoogle);
+        btnFacebook = view.findViewById(R.id.btnFacebook);
         mModel = new ArrayList<>();
     }
 
@@ -133,6 +260,13 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                 getActivity().onBackPressed();
             }
         });
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,RC_SIGN_IN);
+            }
+    });
     }
     private void callLoginApi() {
         String mobileNumber = etMobileNumber.getText().toString().trim();
@@ -145,27 +279,12 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                 if (response.isSuccessful()) {
                     LoginModel resp = response.body();
-                    if (resp != null) {
-                        if (resp.isResponse()) {
-                            Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (otpDialog != null) {
-                                        otpDialog.setOtp(resp.getOtp(), true);
-                                    } else {
-                                        showOtpDialog();
-                                        otpDialog.setOtp(resp.getOtp(), true);
-                                    }
-                                }
-                            }, 1000);
-
-                        } else {
-                            showError(R.string.records_not_found);
-                        }
+                    if (resp != null && resp.isResponse()) {
+                       showErrorGreen(R.string.otp_sent_successfully);
+                        showOtpDialog();
+                        otpDialog.setOtp(resp.getOtp(), true);
                     } else {
-                        Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
-                        Log.e("API Response", "Response body is null");
+                        showError(R.string.records_not_found);
                     }
                 } else {
                     Toast.makeText(getContext(), "Response not successful", Toast.LENGTH_SHORT).show();
@@ -218,7 +337,7 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
                             editor.putString("userId", userId);
                             editor.apply();
                             Log.e( "UserId ssfqwf", userId);
-                            Toast.makeText(getContext(), "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                            showErrorGreen(R.string.Sign_Up_Successful);
                             navigateToHome();
                         } else {
                             Toast.makeText(getContext(), "Error in Sign Up", Toast.LENGTH_SHORT).show();
@@ -256,6 +375,17 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
     private void showError(int resId) {
         textInputError.setText(resId);
         textInputError.setVisibility(View.VISIBLE);
+        textInputError.setBackgroundColor(Color.RED);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                textInputError.setVisibility(View.GONE);
+            }
+        }, delay);
+    }private void showErrorGreen(int resId) {
+        textInputError.setText(resId);
+        textInputError.setVisibility(View.VISIBLE);
+        textInputError.setBackgroundColor(Color.parseColor("#228B22"));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -287,7 +417,7 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
     public void onOtpVerified(boolean isMobileOtp, String otp) {
         textInputError.setText(getString(R.string.otp_verified_successfully));
         textInputError.setVisibility(View.VISIBLE);
-        textInputError.setBackgroundColor(Color.GREEN);
+        textInputError.setBackgroundColor(Color.parseColor("#228B22"));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

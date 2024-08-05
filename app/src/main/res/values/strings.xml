@@ -32,4 +32,7 @@
     <string name="response_not_successful">Response not successful</string>
     <string name="email_already_registered">Email Already Registered</string>
     <string name="mobile_number_already_registered">Mobile Number Already Registered</string>
+    <string name="web_client_id">359067630998-50snnsn3sdlajvt65gt3kmpsa8pfjgiu.apps.googleusercontent.com</string>
+    <string name="otp_sent_successfully">Otp Sent Successfully</string>
+    <string name="Sign_Up_Successful">Sign Up Successful</string>
 </resources>

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.binplus.earnquizmoney.Adapters.QuizAdapter;
 import com.binplus.earnquizmoney.Model.BannerModel;
@@ -40,6 +41,7 @@ public class HomePage extends Fragment {
     private RecyclerView recyclerView;
     private QuizAdapter quizAdapter;
     private List<QuizModel.Datum> quizModelItemList;
+    private ProgressBar progressBar;
 
     public HomePage() {
     }
@@ -54,12 +56,13 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         initViews(view);
+        progressBar.setVisibility(View.VISIBLE);
         callImageSliderApi();
         callUpcomingQuizApi("upcoming");
         recyclerView = view.findViewById(R.id.upcoming_Quiz_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         quizModelItemList = new ArrayList<>();
-        quizAdapter = new QuizAdapter(quizModelItemList, getActivity().getSupportFragmentManager()); // Assigning to quizAdapter
+        quizAdapter = new QuizAdapter(quizModelItemList, getActivity().getSupportFragmentManager());
         recyclerView.setAdapter(quizAdapter);
         return view;
     }
@@ -89,28 +92,32 @@ public class HomePage extends Fragment {
                     if (data != null) {
                         quizModelItemList.clear();
                         quizModelItemList.addAll(data);
-                        quizAdapter.notifyDataSetChanged(); // Using quizAdapter that is properly initialized
-                        //log all data in console
+                        quizAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE); // Hide ProgressBar when data is loaded
                         for (QuizModel.Datum datum : data) {
                             Log.d("HomePagewefwef", "Datum: " + data);
                         }
                     } else {
                         Log.e("HomePage", "No data available");
+                        progressBar.setVisibility(View.GONE); // Hide ProgressBar if no data available
                     }
                 } else {
                     Log.e("HomePage", "Response not successful or body is null");
+                    progressBar.setVisibility(View.GONE); // Hide ProgressBar on unsuccessful response
                 }
             }
 
             @Override
             public void onFailure(Call<QuizModel> call, Throwable t) {
                 Log.e("HomePage", "API call failed: " + t.getMessage());
+                progressBar.setVisibility(View.GONE); // Hide ProgressBar on failure
             }
         });
     }
 
     private void initViews(View view) {
         image_slider = view.findViewById(R.id.image_slider);
+        progressBar = view.findViewById(R.id.progressBar);
     }
 
     private void callImageSliderApi() {

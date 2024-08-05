@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginTop="15dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        app:cardCornerRadius="5pt"
+
+        >
+
+    <TextView
+        android:id="@+id/tvMoney"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="100"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/grey"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

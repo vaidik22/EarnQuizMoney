@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "359067630998",
+    "project_id": "earnquizmoney",
+    "storage_bucket": "earnquizmoney.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359067630998:android:6bfc8693cb527fe461b1b7",
+        "android_client_info": {
+          "package_name": "com.binplus.earnquizmoney"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4tUso-DNFiSGp7FS5WvZA5lQB2uUzZDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

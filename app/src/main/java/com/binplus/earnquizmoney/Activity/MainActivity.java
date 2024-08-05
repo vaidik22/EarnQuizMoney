@@ -12,20 +12,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.binplus.earnquizmoney.R;
+import com.binplus.earnquizmoney.common.Common;
 import com.binplus.earnquizmoney.initialFragment.InitialFragment;
+import com.binplus.earnquizmoney.retrofit.OngetConfigData;
 
 public class MainActivity extends AppCompatActivity {
-
+Common common;
+    OngetConfigData ongetConfigData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        common = new Common(getApplication());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //common.callGetIndexAPI(ongetConfigData);
 
         if (savedInstanceState == null) {
             loadFragment(new InitialFragment());

@@ -35,6 +35,7 @@ public class ReferralFragment extends Fragment {
     private TextView totalReferCountTextView;
     private TextView user_name;
     private TextView user_id;
+    private TextView tvNoData;
     private RecyclerView referRecyclerView;
     private ReferAdapter referAdapter;
     private List<ReferModel.Data> referList = new ArrayList<>();
@@ -80,15 +81,10 @@ public class ReferralFragment extends Fragment {
         apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
         Call<ReferModel> call = apiInterface.getReferApi(object);
         call.enqueue(new Callback<ReferModel>() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<ReferModel> call, Response<ReferModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ReferModel referModel = response.body();
-                    updateUI(referModel);
-                    referList.clear();
-                    referList.addAll(referModel.getRefer_history());
-                    referAdapter.notifyDataSetChanged();
+                    updateUI(response.body());
                     Log.d("ReferralFragment", "Data loaded successfully, referList size: " + referList.size());
                 } else {
                     Toast.makeText(getContext(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
@@ -108,8 +104,19 @@ public class ReferralFragment extends Fragment {
             earnedAmountTextView.setText("Rs. " + referModel.getData().getTotal_amount_earned());
             totalReferCountTextView.setText("Total Refer: " + referModel.getData().getTotal_refer_count());
             user_name.setText(referModel.getData().getName());
-            user_id.setText("ID:#"+referModel.getData().getId());
+            user_id.setText("ID:#" + referModel.getData().getId());
 
+            referList.clear();
+            referList.addAll(referModel.getRefer_history());
+
+            if (referList.isEmpty()) {
+                tvNoData.setVisibility(View.VISIBLE);
+                referRecyclerView.setVisibility(View.GONE);
+            } else {
+                tvNoData.setVisibility(View.GONE);
+                referRecyclerView.setVisibility(View.VISIBLE);
+            }
+            referAdapter.notifyDataSetChanged();
         }
     }
 
@@ -125,5 +132,6 @@ public class ReferralFragment extends Fragment {
         referRecyclerView = view.findViewById(R.id.refered_recycler_view);
         user_name = view.findViewById(R.id.user_name);
         user_id = view.findViewById(R.id.user_id);
+        tvNoData = view.findViewById(R.id.tv_no_data);
     }
 }

@@ -54,9 +54,8 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
             pinView.setCursorVisible(true);
             pinView.setSelection(generatedOtp.length());
             pinView.setError(null);
-            startResendTimer();
+
         } else {
-            // Post a delay to ensure that pinView is initialized
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -66,10 +65,10 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
                         pinView.setCursorVisible(true);
                         pinView.setSelection(generatedOtp.length());
                         pinView.setError(null);
-                        startResendTimer();
+
                     }
                 }
-            }, 2000);
+            }, 5000);
         }
     }
 
@@ -104,6 +103,7 @@ public class OtpVerificationBottomSheetDialog extends BottomSheetDialogFragment 
         View view = inflater.inflate(R.layout.otp_verification_bottom_sheet, container, false);
         initView(view);
         allClick();
+        startResendTimer();
         return view;
     }
 

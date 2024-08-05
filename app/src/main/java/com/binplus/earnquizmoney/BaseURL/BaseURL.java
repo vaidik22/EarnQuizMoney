@@ -15,7 +15,7 @@ public class BaseURL {
     public static String UPDATE_PROFILE = BASE_URL+"update_profile";
     public static String GET_PROFILE = BASE_URL+"get_profile_details";
     public static String upload_profile_image =BASE_URL+ "update_profile_image";
-    public static String GET_CONFIG =BASE_URL+"get_index";
+    public static final String GET_CONFIG =BASE_URL+"get_index";
     public static String GET_CONTEST_DETAIL =BASE_URL+"get_contest_details";
     public static String ADD_FUND_REQUEST =BASE_URL+"add_fund_request";
     public static String WALLET_HISTORY =BASE_URL+"get_wallet_history";

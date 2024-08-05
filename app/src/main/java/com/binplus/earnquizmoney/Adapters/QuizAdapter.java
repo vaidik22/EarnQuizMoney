@@ -50,25 +50,24 @@ Common common;
                 .load(imageUrl)
                 .into(holder.quizImage);
         holder.quizTitle.setText(quizModel.getName());
-        holder.maxEntry.setText(quizModel.getMax_entry()+" "+"People");
+        holder.maxEntry.setText(quizModel.getMax_entry() + " " + "People");
         holder.availableSpots.setText(quizModel.getAvailable_spot());
-        holder.prizePool.setText("Rs."+quizModel.getPrize_pool()+"/-");
+        holder.prizePool.setText("Rs." + quizModel.getPrize_pool() + "/-");
         holder.joiningFees.setText("Rs.2/-");
         holder.quizTime.setText(quizModel.getStart_date());
         holder.view_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuizDetailFragment quizDetailFragment = new QuizDetailFragment();
-                fragmentManager.
-                        beginTransaction()
+                QuizDetailFragment quizDetailFragment = QuizDetailFragment.newInstance(quizModel);
+                fragmentManager
+                        .beginTransaction()
                         .replace(R.id.homeFragment, quizDetailFragment)
                         .addToBackStack(null)
                         .commit();
-
             }
         });
-
     }
+
 
     @Override
     public int getItemCount() {

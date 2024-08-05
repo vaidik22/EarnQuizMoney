@@ -36,7 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_piggy_bank"
                     app:shapeAppearanceOverlay="@style/RoundedImageView"
                     />
 
@@ -57,7 +56,7 @@
                 android:id="@+id/quiz_time"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="06-08-2024 02:45 PM"
+                android:text="0"
                 android:textSize="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
@@ -98,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Rs.2/-"
+                    android:text="0"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
@@ -122,7 +121,7 @@
                     android:id="@+id/max_entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 People"
+                    android:text="0 People"
                     android:textStyle="bold"
                     android:layout_marginTop="3dp"
                     android:textSize="12sp"
@@ -173,7 +172,7 @@
                     android:id="@+id/prize_pool"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rs.2/-"
+                    android:text="Rs.0/-"
                     android:textStyle="bold"
                     android:layout_marginTop="2dp"
                     android:textColor="@android:color/holo_red_dark"
@@ -181,11 +180,11 @@
 
                 <TextView
                     android:id="@+id/end_time"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="20dp"
                     android:text="260:56:49"
-                    android:textSize="10dp"
+                    android:textSize="12sp"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -248,24 +247,21 @@
             >
 
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="70dp"
+                android:id="@+id/btnMaxFill"
+                android:layout_width="90dp"
                 android:layout_height="30dp"
-                android:background="@drawable/button_background"
-                android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:textSize="12sp"
+                android:textSize="8sp"
                 android:layout_marginRight="@dimen/dimen_5pt"
-                android:text="Max Fill"
-                />
+                android:text="Max Fill" />
+
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="70dp"
+                android:id="@+id/btnCurrentFill"
+                android:layout_width="90dp"
                 android:layout_height="30dp"
-                android:backgroundTint="@color/grey"
-                android:textSize="12sp"
-                android:background="@drawable/button_background"
+                android:textSize="8sp"
                 android:text="Current Fill"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
                 />
 
         </LinearLayout>

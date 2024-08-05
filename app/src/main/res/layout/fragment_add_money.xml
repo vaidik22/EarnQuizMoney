@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AddMoneyFragment">
+    tools:context=".Fragments.AddMoneyFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/purple_background"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Wallet"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/earner_amount"
+            android:text="Rs. 0"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Open Wallet"
+            android:id="@+id/tv_open_wallet"
+            android:textColor="@color/black"
+            android:background="@drawable/background_white_curved"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:elevation="2dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello Add money Fragment" />
+        android:padding="10dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/et_money"
+                android:layout_weight="1.5"
+                android:paddingLeft="10dp"
+                android:hint="Enter Amount Here"
+                android:textSize="12sp"
+                android:background="@drawable/rounder_edittext_grey"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@drawable/rounded_background_black"
+                android:layout_marginLeft="10dp"
+                android:text="Add Money"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rev_money"
+
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

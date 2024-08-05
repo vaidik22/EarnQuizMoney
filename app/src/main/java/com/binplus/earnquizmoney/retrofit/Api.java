@@ -2,6 +2,7 @@ package com.binplus.earnquizmoney.retrofit;
 
 
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_BANNER;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONFIG;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONTEST;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.LOGIN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.REFER_EARN;
@@ -18,6 +19,7 @@ import com.binplus.earnquizmoney.Model.SignUpModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
 import com.google.gson.JsonObject;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -45,4 +47,6 @@ public interface Api {
     @GET(getPrivacy)
     Call<CommonModel> getPrivacy();
 
+    @GET(GET_CONFIG)
+    Call<ConfigModel> getIndexApi();
 }

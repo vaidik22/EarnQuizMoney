@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:text="Refer History"
         android:textSize="15sp"
+        android:layout_marginLeft="10dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         />
@@ -84,7 +85,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
-                android:text="nigam"
                 android:layout_alignParentStart="true"
                 android:gravity="center" />
 
@@ -93,10 +93,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_id"
                 android:text="ID:#"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:gravity="center" />
         </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/tv_no_data"
+        android:text="No Data Found"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

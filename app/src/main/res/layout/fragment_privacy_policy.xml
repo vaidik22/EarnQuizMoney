@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.PrivacyPolicyFragment">
 
-
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_privacy_policy"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_privacy_policy"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:textStyle="bold" />
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
 </FrameLayout>

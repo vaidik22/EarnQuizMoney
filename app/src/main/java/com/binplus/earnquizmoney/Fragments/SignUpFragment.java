@@ -114,7 +114,6 @@ public class SignUpFragment extends Fragment {
             } else if (!isValidEmail(email)) {
                 showError(R.string.enter_valid_email);
             } else {
-                showOtpDialog(false);
                 callSignUpApiEmail();
             }
         });
@@ -169,18 +168,10 @@ public class SignUpFragment extends Fragment {
                     SignUpModel resp = response.body();
                     if (resp != null) {
                         if (resp.isResponse()) {
-                            Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (otpDialog != null) {
-                                        otpDialog.setOtp(resp.getOtp(), true);
-                                    } else {
-                                        showOtpDialog(true);
-                                        otpDialog.setOtp(resp.getOtp(), true);
-                                    }
-                                }
-                            }, 1000);
+                            showErrorgreen(R.string.otp_sent_successfully);
+
+                            showOtpDialog(true);
+                            otpDialog.setOtp(resp.getOtp(), true);
 
                         } else {
                             showError(R.string.mobile_number_already_registered);
@@ -223,23 +214,16 @@ public class SignUpFragment extends Fragment {
                     SignUpModel resp = response.body();
                     if (resp != null) {
                         if (resp.isResponse()) {
-                            Toast.makeText(getContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (otpDialog != null) {
-                                        otpDialog.setOtp(resp.getOtp(), false);
-                                    } else {
-                                        showOtpDialog(false);
-                                        otpDialog.setOtp(resp.getOtp(), false);
-                                    }
-                                }
-                            }, 1000);
+                            showErrorgreen(R.string.otp_sent_successfully);
+
+
+                                showOtpDialog(false);
+                                otpDialog.setOtp(resp.getOtp(), false);
 
                         } else {
                             showError(R.string.email_already_registered);
                         }
-                    } else {
+                    }  else {
                         Toast.makeText(getContext(), "Response body is null", Toast.LENGTH_SHORT).show();
                         Log.e("API Response", "Response body is null");
                     }
@@ -288,7 +272,7 @@ public class SignUpFragment extends Fragment {
                     SignUpModel resp = response.body();
                     if (resp != null) {
                         if (resp.isResponse()) {
-                            Toast.makeText(getContext(), R.string.sign_up_successfully, Toast.LENGTH_SHORT).show();
+                            showErrorgreen(R.string.sign_up_successfully);
                             navigateToHome();
                         } else {
                             Toast.makeText(getContext(), error_in_sign_up, Toast.LENGTH_SHORT).show();
@@ -333,7 +317,7 @@ public class SignUpFragment extends Fragment {
                 emailOtp = otp;
                 isEmailOtpVerified = true;
             }
-            showError(R.string.otp_verified_successfully);
+            showErrorgreen(R.string.otp_verified_successfully);
         });
         otpDialog.setResendOtpListener(isMobile ? this::callSignUpApiMobile : this::callSignUpApiEmail);
         otpDialog.show(getChildFragmentManager(), "OtpVerificationBottomSheetDialog");
@@ -342,6 +326,13 @@ public class SignUpFragment extends Fragment {
     private void showError(int resId) {
         textinput_error.setText(resId);
         textinput_error.setVisibility(View.VISIBLE);
+        textinput_error.setBackgroundColor(Color.RED);
+        new Handler().postDelayed(() -> textinput_error.setVisibility(View.GONE), delay);
+    }
+    private void showErrorgreen(int resId) {
+        textinput_error.setText(resId);
+        textinput_error.setVisibility(View.VISIBLE);
+        textinput_error.setBackgroundColor(Color.parseColor("#228B22"));
         new Handler().postDelayed(() -> textinput_error.setVisibility(View.GONE), delay);
     }
 

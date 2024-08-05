@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //go to back fragment
+
                 Fragment selectedFragment = new HomePage();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -159,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String title = "";
 
         if (item.getItemId() == R.id.live_games) {
-            selectedFragment = new LiveGamesFragment();
+            selectedFragment = new HomePage();
             title = "Live Games";
         }
         if (item.getItemId() == R.id.add_money) {

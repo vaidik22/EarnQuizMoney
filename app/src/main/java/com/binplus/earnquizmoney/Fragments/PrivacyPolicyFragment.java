@@ -1,8 +1,10 @@
 package com.binplus.earnquizmoney.Fragments;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class PrivacyPolicyFragment extends Fragment {
 
     private TextView tvPrivacyPolicy;
     Api apiService ;
+    ProgressBar progressBar;
 
     public PrivacyPolicyFragment() {
         // Required empty public constructor
@@ -38,17 +41,18 @@ public class PrivacyPolicyFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_privacy_policy, container, false);
         tvPrivacyPolicy = view.findViewById(R.id.tv_privacy_policy);
+        progressBar = view.findViewById(R.id.progressBar);
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         apiService = retrofit.create(Api.class);
         fetchPrivacyPolicy();
         return view;
     }
     private void fetchPrivacyPolicy() {
-
         Call<CommonModel> call = apiService.getPrivacy();
         call.enqueue(new Callback<CommonModel>() {
             @Override
@@ -58,16 +62,20 @@ public class PrivacyPolicyFragment extends Fragment {
                     for (CommonModel.Datum data : dataList) {
                         if ("1".equals(data.getId())) {
                             tvPrivacyPolicy.setText(data.getMessage());
+                            tvPrivacyPolicy.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                             break;
                         }
                     }
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CommonModel> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
