@@ -17,11 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.binplus.earnquizmoney.Fragments.AddMoneyFragment;
 import com.binplus.earnquizmoney.Fragments.HomePage;
-import com.binplus.earnquizmoney.Fragments.LiveGamesFragment;
-import com.binplus.earnquizmoney.Fragments.MyQuizFragment;
 import com.binplus.earnquizmoney.Fragments.ProfileFragment;
 import com.binplus.earnquizmoney.Fragments.HowToPlayFragment;
 import com.binplus.earnquizmoney.Fragments.PrivacyPolicyFragment;
+import com.binplus.earnquizmoney.Fragments.RankingFragment;
 import com.binplus.earnquizmoney.Fragments.ReferralFragment;
 import com.binplus.earnquizmoney.Fragments.SupportFragment;
 import com.binplus.earnquizmoney.Fragments.TermsAndConditionsFragment;
@@ -129,7 +128,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 topNavigation.setVisibility(View.VISIBLE);
                 navigationViewToolbar.setVisibility(View.GONE);
                 if (item.getItemId() == R.id.navigation_my_quiz)
-                    selectedFragment = new MyQuizFragment();
+                    selectedFragment = new RankingFragment();
                 topNavigation.setVisibility(View.VISIBLE);
                 navigationViewToolbar.setVisibility(View.GONE);
                 if (item.getItemId() == R.id.navigation_profile)
@@ -140,6 +139,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
         });
+    }
+    public void showBottomNavigation() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBottomNavigation() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showTopNavigation() {
+        topNavigation.setVisibility(View.VISIBLE);
+        navigationViewToolbar.setVisibility(View.GONE);
+    }
+
+    public void hideTopNavigation() {
+        topNavigation.setVisibility(View.GONE);
+        navigationViewToolbar.setVisibility(View.VISIBLE);
     }
 
     private void initView() {

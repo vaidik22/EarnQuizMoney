@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.binplus.earnquizmoney.Adapters.QuizAdapter;
 import com.binplus.earnquizmoney.Model.BannerModel;
@@ -42,6 +44,8 @@ public class HomePage extends Fragment {
     private QuizAdapter quizAdapter;
     private List<QuizModel.Datum> quizModelItemList;
     private ProgressBar progressBar;
+    LinearLayout no_upcoming_contest_layout;
+    TextView tv_message;
 
     public HomePage() {
     }
@@ -89,28 +93,36 @@ public class HomePage extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     QuizModel quizModel = response.body();
                     List<QuizModel.Datum> data = quizModel.upcoming_contest.data;
-                    if (data != null) {
+                    if(quizModel.getUpcoming_contest().getError().equalsIgnoreCase("true")){
+                        no_upcoming_contest_layout.setVisibility(View.VISIBLE);
+                        tv_message.setText(quizModel.getUpcoming_contest().getMessage());
+                        recyclerView.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    else if (data != null) {
+                        no_upcoming_contest_layout.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
                         quizModelItemList.clear();
                         quizModelItemList.addAll(data);
                         quizAdapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE); // Hide ProgressBar when data is loaded
+                        progressBar.setVisibility(View.GONE);
                         for (QuizModel.Datum datum : data) {
                             Log.d("HomePagewefwef", "Datum: " + data);
                         }
                     } else {
                         Log.e("HomePage", "No data available");
-                        progressBar.setVisibility(View.GONE); // Hide ProgressBar if no data available
+                        progressBar.setVisibility(View.GONE);
                     }
                 } else {
                     Log.e("HomePage", "Response not successful or body is null");
-                    progressBar.setVisibility(View.GONE); // Hide ProgressBar on unsuccessful response
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<QuizModel> call, Throwable t) {
                 Log.e("HomePage", "API call failed: " + t.getMessage());
-                progressBar.setVisibility(View.GONE); // Hide ProgressBar on failure
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -118,6 +130,8 @@ public class HomePage extends Fragment {
     private void initViews(View view) {
         image_slider = view.findViewById(R.id.image_slider);
         progressBar = view.findViewById(R.id.progressBar);
+        no_upcoming_contest_layout = view.findViewById(R.id.no_upcoming_contest_layout);
+        tv_message = view.findViewById(R.id.tv_message);
     }
 
     private void callImageSliderApi() {

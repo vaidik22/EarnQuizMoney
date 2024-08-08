@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purpleBackground">#8E24AA</color>
+    <color name="green">#0DDD16</color>
     <color name="purpleButton">#AB47BC</color>
     <color name="red">#C10C0C</color>
     <color name="grey">#F3F1EF</color>

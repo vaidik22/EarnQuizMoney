@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.HomePage">
+    tools:context=".Fragments.HomePage"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,12 +47,35 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:id="@+id/upcoming_Quiz_recycler"
             android:layout_marginTop="10sp"
             android:layout_marginEnd="10sp"
             android:layout_marginStart="10sp"
             android:orientation="vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/no_upcoming_contest_layout"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_message"
+                android:text="@string/no_upcoming_contest_to_show_soon_we_will_be_announcing_the_one"
+                android:gravity="center"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/purpleButton"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
     </LinearLayout>
+
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -60,4 +84,4 @@
         android:layout_gravity="center"
         android:visibility="visible"/>
 
-</FrameLayout>
+</LinearLayout>

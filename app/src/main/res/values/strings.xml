@@ -35,4 +35,7 @@
     <string name="web_client_id">359067630998-50snnsn3sdlajvt65gt3kmpsa8pfjgiu.apps.googleusercontent.com</string>
     <string name="otp_sent_successfully">Otp Sent Successfully</string>
     <string name="Sign_Up_Successful">Sign Up Successful</string>
+    <string name="wallet_transactions">Wallet Transactions</string>
+    <string name="no_upcoming_contest_to_show_soon_we_will_be_announcing_the_one">No Upcoming contest to show</string>
+    <string name="time">Time</string>
 </resources>

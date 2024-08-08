@@ -16,7 +16,7 @@ public class BaseURL {
     public static String GET_PROFILE = BASE_URL+"get_profile_details";
     public static String upload_profile_image =BASE_URL+ "update_profile_image";
     public static final String GET_CONFIG =BASE_URL+"get_index";
-    public static String GET_CONTEST_DETAIL =BASE_URL+"get_contest_details";
+    public static final String GET_CONTEST_DETAIL =BASE_URL+"get_contest_details";
     public static String ADD_FUND_REQUEST =BASE_URL+"add_fund_request";
     public static String WALLET_HISTORY =BASE_URL+"get_wallet_history";
     public static String WITHDRAW_HISTORY =BASE_URL+"";
@@ -29,7 +29,7 @@ public class BaseURL {
     public static String CONTEST_UPDATE_SCORE = "contest_update_score";
     public static String QUESTION_ATTEND = "questions_attended";
 
-    public static String GET_QUESTION_BY_CONTEST =BASE_URL+ "get_questions_by_contest";
+    public static final String GET_QUESTION_BY_CONTEST =BASE_URL+ "get_questions_by_contest";
     public static String ADD_POINT = "add_points";
     public static String TYPE = "type";
     public static final String GET_BANNER = BASE_URL+"get_banner";

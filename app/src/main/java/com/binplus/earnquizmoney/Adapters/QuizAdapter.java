@@ -25,7 +25,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
-Common common;
     private List<QuizModel.Datum> quizList;
     private FragmentManager fragmentManager;
 
@@ -53,7 +52,7 @@ Common common;
         holder.maxEntry.setText(quizModel.getMax_entry() + " " + "People");
         holder.availableSpots.setText(quizModel.getAvailable_spot());
         holder.prizePool.setText("Rs." + quizModel.getPrize_pool() + "/-");
-        holder.joiningFees.setText("Rs.2/-");
+        holder.joiningFees.setText("Rs."+quizModel.getEntry()+"/-");
         holder.quizTime.setText(quizModel.getStart_date());
         holder.view_more.setOnClickListener(new View.OnClickListener() {
             @Override
