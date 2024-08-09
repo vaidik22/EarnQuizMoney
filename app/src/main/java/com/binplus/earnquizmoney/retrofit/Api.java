@@ -1,6 +1,7 @@
 package com.binplus.earnquizmoney.retrofit;
 
 
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.CONTEST_UPDATE_SCORE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_BANNER;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONFIG;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONTEST;
@@ -20,10 +21,12 @@ import com.binplus.earnquizmoney.Model.QuizDetailModel;
 import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.Model.ReferModel;
 import com.binplus.earnquizmoney.Model.SignUpModel;
+import com.binplus.earnquizmoney.Model.UpdateScoreModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -58,4 +61,8 @@ public interface Api {
 
     @POST(GET_QUESTION_BY_CONTEST)
     Call<QuestionModel> getQuestionApi(@Body JsonObject postData);
+
+    @POST(CONTEST_UPDATE_SCORE)
+    Call<UpdateScoreModel> getContestUpdateScore(@Body JsonObject postData);
+
 }

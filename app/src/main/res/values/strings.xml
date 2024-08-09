@@ -38,4 +38,17 @@
     <string name="wallet_transactions">Wallet Transactions</string>
     <string name="no_upcoming_contest_to_show_soon_we_will_be_announcing_the_one">No Upcoming contest to show</string>
     <string name="time">Time</string>
+    <string name="error_message_id">First Completed Quiz</string>
+    <string name="text_message">Do u Really Want to Submit the Quiz?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="congratulation">The Quiz has Been Submitted! Stay tuned for your results and keep challenging yourself to learn more.</string>
+    <string name="no_more_questions">No more questions</string>
+    <string name="select_an_answer">Please select an answer</string>
+    <string name="quiz_completed">Quiz Completed</string>
+    <string name="correct_answer">Correct Answer!</string>
+    <string name="wrong_answer">Wrong Answer!</string>
+    <string name="score_updated">Score Updated Successfully</string>
+    <string name="failed_to_update_score">Failed To Update Score</string>
 </resources>

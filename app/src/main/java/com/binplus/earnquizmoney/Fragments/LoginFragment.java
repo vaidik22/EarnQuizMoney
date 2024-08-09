@@ -372,7 +372,7 @@ public class LoginFragment extends Fragment implements OtpVerificationBottomShee
         otpDialog.show(getFragmentManager(), "OtpVerificationBottomSheetDialog");
     }
 
-    private void showError(int resId) {
+    public void showError(int resId) {
         textInputError.setText(resId);
         textInputError.setVisibility(View.VISIBLE);
         textInputError.setBackgroundColor(Color.RED);

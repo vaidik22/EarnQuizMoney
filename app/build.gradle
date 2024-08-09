@@ -70,5 +70,8 @@ dependencies {
     //facebook
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 
+    //razorpay
+    implementation 'com.razorpay:checkout:1.6.18'
+
 
 }

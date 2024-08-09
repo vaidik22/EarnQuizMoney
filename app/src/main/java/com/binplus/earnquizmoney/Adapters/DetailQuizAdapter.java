@@ -106,6 +106,17 @@ public class DetailQuizAdapter extends RecyclerView.Adapter<DetailQuizAdapter.Qu
                         .commit();
             }
         });
+        holder.btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionsFragment questionsFragment = new QuestionsFragment();
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.homeFragment, questionsFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         String startDate = quizModel.getStart_date();
         String endDate = quizModel.getEnd_date();
@@ -153,7 +164,7 @@ public class DetailQuizAdapter extends RecyclerView.Adapter<DetailQuizAdapter.Qu
     }
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder {
-        private AppCompatButton btnMaxFill,btn_join;
+        private AppCompatButton btnMaxFill,btn_join,btn_play;
         private AppCompatButton btnCurrentFill;
         private ImageView quizImage;
         private TextView quizTitle, quizTime, joiningFees, maxEntryDetail, description, availableSpots, prizePoolDetail, view_more, end_time;
@@ -173,6 +184,7 @@ public class DetailQuizAdapter extends RecyclerView.Adapter<DetailQuizAdapter.Qu
             view_more = itemView.findViewById(R.id.view_more);
             end_time = itemView.findViewById(R.id.end_time);
             btn_join = itemView.findViewById(R.id.btn_join);
+            btn_play = itemView.findViewById(R.id.btn_play);
         }
     }
 

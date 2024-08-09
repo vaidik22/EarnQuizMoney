@@ -39,6 +39,7 @@ ImageView twitter_icon;
 Common common;
 String instagramLink;
 String facebookUrl;
+String twitterLink;
 Api apiService;
 TextView txtcopypaste;
 
@@ -71,7 +72,8 @@ TextView txtcopypaste;
         initView(view);
         allClicks();
         fetchConfigData();
-        //fetchConfigDataFaceBook();
+        fetchConfigDataFaceBook();
+        fetchConfigDataTwitter();
     return  view;
     }
 
@@ -96,6 +98,18 @@ TextView txtcopypaste;
                                                 callInstagramLink();
                                               }
                                           });
+        facebook_icon.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callFaceBookLink();
+            }
+        }));
+        twitter_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callTwitterLink();
+            }
+        });
     }
 
 //    private void getFaceBookLink() {
@@ -137,31 +151,69 @@ TextView txtcopypaste;
             }
         });
     }
-//private void fetchConfigDataFaceBook() {
-//        Call<ConfigModel> call = apiService.getIndexApi();
-//        call.enqueue(new Callback<ConfigModel>() {
-//            @Override
-//            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    ConfigModel configModel = response.body();
-//                    if (configModel.getData() != null) {
-//                        facebookUrl = configModel.getData().getFacebook_link();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ConfigModel> call, Throwable t) {
-//                // Handle the error
-//            }
-//        });
-//    }
+private void fetchConfigDataFaceBook() {
+        Call<ConfigModel> call = apiService.getIndexApi();
+        call.enqueue(new Callback<ConfigModel>() {
+            @Override
+            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ConfigModel configModel = response.body();
+                    if (configModel.getData() != null) {
+                        facebookUrl = configModel.getData().getFacebook_link();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConfigModel> call, Throwable t) {
+                // Handle the error
+            }
+        });
+    }
+private void fetchConfigDataTwitter() {
+        Call<ConfigModel> call = apiService.getIndexApi();
+        call.enqueue(new Callback<ConfigModel>() {
+            @Override
+            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ConfigModel configModel = response.body();
+                    if (configModel.getData() != null) {
+                         twitterLink= configModel.getData().getTwitter_link();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConfigModel> call, Throwable t) {
+                // Handle the error
+            }
+        });
+    }
 
 
     private void callInstagramLink() {
         if (instagramLink != null && !instagramLink.isEmpty()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(instagramLink));
+            startActivity(intent);
+        } else {
+            // Handle the case where the link is not available
+        }
+    }
+ private void callFaceBookLink() {
+        if (facebookUrl != null && !facebookUrl.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(facebookUrl));
+            startActivity(intent);
+        } else {
+            // Handle the case where the link is not available
+        }
+    }
+
+    private void callTwitterLink() {
+        if (twitterLink != null && !twitterLink.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(twitterLink));
             startActivity(intent);
         } else {
             // Handle the case where the link is not available

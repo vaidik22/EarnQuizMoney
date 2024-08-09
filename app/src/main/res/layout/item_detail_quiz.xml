@@ -204,7 +204,20 @@
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:textStyle="bold"
+         android:visibility="gone"
         android:background="@drawable/bluebutton"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:id="@+id/btn_play"
+        android:visibility="visible"
+        android:layout_marginLeft="20dp"
+        android:text="Play Now"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:background="@drawable/greenbutton"
         />
 
     <LinearLayout

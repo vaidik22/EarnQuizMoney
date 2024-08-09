@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String userName = sharedPreferences.getString("userName", "Default Name");
         String userMobile = sharedPreferences.getString("userMobile", "Default Mobile");
 
-        // Get header view from navigation view
+
         View headerView = navigationView.getHeaderView(0);
 
         user_name = headerView.findViewById(R.id.user_name);
@@ -108,6 +108,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 topNavigation.setVisibility(View.VISIBLE);
                 navigationViewToolbar.setVisibility(View.GONE);
+                bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
     }

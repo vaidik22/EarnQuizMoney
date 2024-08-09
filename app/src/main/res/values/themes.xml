@@ -11,6 +11,11 @@
 
     </style>
 
+    <style name="TextViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">7pt</item>
+    </style>
+
     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="android:textSize">9sp</item>
         <item name="android:textAllCaps">false</item>

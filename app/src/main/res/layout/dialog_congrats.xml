@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="8dp"
+        android:layout_height="140dp"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/round_button">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/grey"
+            android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/circle"/>
+            <TextView
+                android:id="@+id/tv_message_maintain"
+                android:text="Congratulations"
+                android:textSize="10pt"
+                android:ellipsize="end"
+                android:layout_marginHorizontal="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                style="@style/TextViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+</LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/dimen_5pt"
+                android:paddingRight="@dimen/dimen_5pt"
+                android:textSize="10sp"
+                android:text="@string/congratulation"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_yes"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:text="@string/ok"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:background="@drawable/button_background"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20sp"
+                    />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

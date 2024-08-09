@@ -1,6 +1,5 @@
 package com.binplus.earnquizmoney.Fragments;
 
-import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,31 +9,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import androidx.appcompat.widget.AppCompatButton;
+import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.binplus.earnquizmoney.Adapters.DetailQuizAdapter;
-import com.binplus.earnquizmoney.Adapters.QuizAdapter;
 import com.binplus.earnquizmoney.Adapters.WinningListRankAdapter;
 import com.binplus.earnquizmoney.Model.QuizDetailModel;
 import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.google.android.material.button.MaterialButton;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +37,8 @@ public class QuizDetailFragment extends Fragment implements DetailQuizAdapter.On
     private List<QuizDetailModel.CurrentFill> quizList2;
     private RecyclerView recyclerViewWinning;
     private WinningListRankAdapter quizAdapterWinning;
-
+    private LinearLayout progressBar;
+    private LinearLayout main;
     private String id;
 
     public QuizDetailFragment() {
@@ -84,6 +73,8 @@ public class QuizDetailFragment extends Fragment implements DetailQuizAdapter.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quiz_detail, container, false);
+        progressBar = view.findViewById(R.id.progress_bar);
+        main = view.findViewById(R.id.main);
         recyclerViewWinning = view.findViewById(R.id.rev_winning_list);
         recyclerViewWinning.setLayoutManager(new LinearLayoutManager(recyclerViewWinning.getContext()));
         quizList2 = new ArrayList<>();
@@ -97,8 +88,19 @@ public class QuizDetailFragment extends Fragment implements DetailQuizAdapter.On
         recyclerView.setAdapter(quizAdapter);
         return view;
     }
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        main.setVisibility(View.GONE);
+
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        main.setVisibility(View.VISIBLE);
+    }
 
     private void callUpcomingQuizDetailApi() {
+        showLoading();
         JsonObject params = new JsonObject();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String authId = sharedPreferences.getString("userId", "Default Id");
@@ -110,6 +112,7 @@ public class QuizDetailFragment extends Fragment implements DetailQuizAdapter.On
         call.enqueue(new Callback<QuizDetailModel>() {
             @Override
             public void onResponse(Call<QuizDetailModel> call, Response<QuizDetailModel> response) {
+                hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
                     QuizDetailModel quizModel = response.body();
                     ArrayList<QuizDetailModel.Datum> data = quizModel.getData();
@@ -127,6 +130,7 @@ public class QuizDetailFragment extends Fragment implements DetailQuizAdapter.On
 
             @Override
             public void onFailure(Call<QuizDetailModel> call, Throwable t) {
+                hideLoading();
                 Log.e("QuizDetailFragment", "API call failed: " + t.getMessage());
             }
         });

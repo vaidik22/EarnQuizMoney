@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.binplus.earnquizmoney.Activity.HomeActivity;
 import com.binplus.earnquizmoney.Adapters.AddMoneyAdapter;
 import com.binplus.earnquizmoney.Interfaces.OnMoneySelectedListener;
 import com.binplus.earnquizmoney.R;
@@ -20,9 +22,12 @@ import com.binplus.earnquizmoney.common.Common;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.ConfigModel;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddMoneyFragment extends Fragment implements OnMoneySelectedListener {
+public class AddMoneyFragment extends Fragment implements OnMoneySelectedListener, PaymentResultListener {
 
     private RecyclerView recyclerView;
     private AddMoneyAdapter addMoneyAdapter;
@@ -39,12 +44,13 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
     EditText et_money;
     TextView tv_open_wallet;
     Common common;
+    TextView tv_add_money;
 
     public AddMoneyFragment() {
         // Required empty public constructor
     }
 
-    public static AddMoneyFragment newInstance() {
+    public AddMoneyFragment newInstance() {
         return new AddMoneyFragment();
     }
 
@@ -79,13 +85,54 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
 
             }
         });
+        tv_add_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPayment();
+            }
+        });
     }
 
     private void initView(View view) {
         et_money = view.findViewById(R.id.et_money);
         tv_open_wallet = view.findViewById(R.id.tv_open_wallet);
+        tv_add_money = view.findViewById(R.id.tv_add_money);
+    }
+    private void startPayment() {
+        String money = et_money.getText().toString().trim();
+
+        if (money.isEmpty()) {
+            Toast.makeText(getContext(), "Please enter an amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Checkout checkout = new Checkout();
+        checkout.setKeyID("rzp_test_z8Ua5t06etqliE");
+
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", "Earn Quiz Money");
+            options.put("description", "Add Money to Wallet");
+            options.put("currency", "INR");
+            options.put("amount", money + "00");
+            checkout.open(getActivity(), options);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public void onPaymentSuccess(String s) {
+        Toast.makeText(getContext(), "Payment Successful: " + s, Toast.LENGTH_SHORT).show();
+        // Handle successful payment here
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(getContext(), "Payment Failed: " + s, Toast.LENGTH_SHORT).show();
+        // Handle failed payment here
+    }
     private void fetchAddMoneyValue() {
         apiService = RetrofitClient.getRetrofitInstance().create(Api.class);
         Call<ConfigModel> call = apiService.getIndexApi();

@@ -104,7 +104,6 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/tv_no_data"
-        android:text="No Data Found"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="15sp"
