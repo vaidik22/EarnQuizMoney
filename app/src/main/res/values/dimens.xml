@@ -102,5 +102,6 @@
     <dimen name="list_item_spacing_half">8dp</dimen>
     <dimen name="share_icon_height">15pt</dimen>
     <dimen name="share_icon_width">35pt</dimen>
+    <dimen name="dimen_5pt">5pt</dimen>
 
 </resources>
