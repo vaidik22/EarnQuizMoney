@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="1"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="#000000"
+            android:padding="8dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_transaction_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: #150"
+            android:textColor="@android:color/black"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <!-- Transaction Amount -->
+        <TextView
+            android:id="@+id/tv_transaction_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ Rs.1"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <!-- Transaction Date and Time -->
+        <TextView
+            android:id="@+id/tv_transaction_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="27-07-2024 | 12:26 PM"
+            android:textColor="@android:color/darker_gray"
+            android:padding="8dp"/>
+       </LinearLayout>
+    </LinearLayout>
+
+    <!-- Center Section: Transaction Type -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_transaction_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Money"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <!-- Right Section: Status -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <!-- Status Button -->
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete"
+            android:background="@drawable/button_background"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:padding="8dp"/>
+
+        <!-- Payment Method -->
+        <TextView
+            android:id="@+id/tv_payment_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPI"
+            android:textColor="@android:color/darker_gray"
+            android:paddingTop="8dp"/>
+    </LinearLayout>
+
+</LinearLayout>

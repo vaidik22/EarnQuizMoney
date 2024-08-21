@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/layout_basic_edit"
+        android:visibility="visible"
+        android:layout_margin="@dimen/space_5"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingBottom="8dp"/>
+        <EditText
+            android:id="@+id/refer_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Refer ID"
+            android:inputType="text"
+            android:padding="12dp"
+            android:background="@drawable/border_black"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_submit"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_gravity="center"
+            android:text="@string/submit"
+            />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

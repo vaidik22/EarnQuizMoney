@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.WithdrawalWalletTransFragment"
     android:padding="16dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="19sp"
         android:textStyle="bold"
+        android:layout_marginBottom="10dp"
         android:text="@string/wallet_transactions"
         />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/withdrawal_wallet_trans_recycler_view">
 
-</FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textinput_error"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:gravity="start|center"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:paddingLeft="@dimen/dimen_5pt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:text="Mobile Number Required"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        />
+</LinearLayout>

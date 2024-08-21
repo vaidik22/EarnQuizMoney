@@ -11,6 +11,7 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.LOGIN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.REFER_EARN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.SIGN_UP;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.VERIFY_OTP;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.WALLET_HISTORY;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.getPrivacy;
 
 import com.binplus.earnquizmoney.Model.BannerModel;
@@ -21,6 +22,7 @@ import com.binplus.earnquizmoney.Model.QuizDetailModel;
 import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.Model.ReferModel;
 import com.binplus.earnquizmoney.Model.SignUpModel;
+import com.binplus.earnquizmoney.Model.TransactionModel;
 import com.binplus.earnquizmoney.Model.UpdateScoreModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
 import com.google.gson.JsonObject;
@@ -64,5 +66,8 @@ public interface Api {
 
     @POST(CONTEST_UPDATE_SCORE)
     Call<UpdateScoreModel> getContestUpdateScore(@Body JsonObject postData);
+
+    @POST(WALLET_HISTORY)
+    Call<TransactionModel> getTransactionApi(@Body JsonObject postData);
 
 }

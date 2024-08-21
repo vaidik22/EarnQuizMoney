@@ -15,7 +15,7 @@ public class BaseURL {
     public static final String GET_CONFIG =BASE_URL+"get_index";
     public static final String GET_CONTEST_DETAIL =BASE_URL+"get_contest_details";
     public static String ADD_FUND_REQUEST =BASE_URL+"add_fund_request";
-    public static String WALLET_HISTORY =BASE_URL+"get_wallet_history";
+    public static final String WALLET_HISTORY =BASE_URL+"get_wallet_history";
     public static String WITHDRAW_HISTORY =BASE_URL+"";
     public static String SEND_WITHDRAWAL_REQUEST =BASE_URL+"add_withdrawal_request";
     public static final String GET_CONTEST = BASE_URL+"get_contest";
