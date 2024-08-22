@@ -21,7 +21,7 @@
         android:layout_gravity="center">
         <de.hdodenhof.circleimageview.CircleImageView
             app:civ_border_width="@dimen/space_1"
-            android:src="@drawable/circle"
+            android:src="@drawable/ic_user"
             android:id="@+id/iv_cir"
             android:layout_centerHorizontal="true"
             app:civ_border_color="@color/white"
@@ -31,6 +31,7 @@
             android:layout_width="@dimen/space_15"
             android:layout_height="@dimen/space_15"
             android:layout_marginStart="-17pt"
+            android:id="@+id/edit_profile_img"
             android:background="@drawable/background_purple_fill"
             android:layout_marginTop="-18pt"
             android:layout_below="@id/iv_cir"

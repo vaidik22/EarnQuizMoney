@@ -16,6 +16,7 @@ import com.binplus.earnquizmoney.Adapters.ViewPagerAdapterWallet;
 import com.binplus.earnquizmoney.Model.TransactionModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
+import com.binplus.earnquizmoney.retrofit.RetrofitClient;
 import com.denzcoskun.imageslider.adapters.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.JsonObject;
@@ -49,6 +50,7 @@ public class WalletFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
 
     }
 

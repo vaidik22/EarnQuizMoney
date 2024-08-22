@@ -6,10 +6,12 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_BANNER;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONFIG;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONTEST;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_CONTEST_DETAIL;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_PROFILE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_QUESTION_BY_CONTEST;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.LOGIN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.REFER_EARN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.SIGN_UP;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.UPDATE_PROFILE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.VERIFY_OTP;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.WALLET_HISTORY;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.getPrivacy;
@@ -17,12 +19,14 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.getPrivacy;
 import com.binplus.earnquizmoney.Model.BannerModel;
 import com.binplus.earnquizmoney.Model.CommonModel;
 import com.binplus.earnquizmoney.Model.LoginModel;
+import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.Model.QuestionModel;
 import com.binplus.earnquizmoney.Model.QuizDetailModel;
 import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.Model.ReferModel;
 import com.binplus.earnquizmoney.Model.SignUpModel;
 import com.binplus.earnquizmoney.Model.TransactionModel;
+import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
 import com.binplus.earnquizmoney.Model.UpdateScoreModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
 import com.google.gson.JsonObject;
@@ -69,5 +73,11 @@ public interface Api {
 
     @POST(WALLET_HISTORY)
     Call<TransactionModel> getTransactionApi(@Body JsonObject postData);
+
+    @POST(GET_PROFILE)
+    Call<ProfileModel> getProfileApi(@Body JsonObject postData);
+
+    @POST(UPDATE_PROFILE)
+    Call<ProfileModel> getProfileImageApi(@Body JsonObject postData);
 
 }

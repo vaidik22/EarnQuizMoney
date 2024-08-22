@@ -9,9 +9,9 @@ public class BaseURL {
     public static final String VERIFY_OTP = BASE_URL+"verify_otp";
     public static final String LOGIN=BASE_URL+"login";
     public static final String REFER_EARN=BASE_URL+"refer_and_earn";
-    public static String UPDATE_PROFILE = BASE_URL+"update_profile";
-    public static String GET_PROFILE = BASE_URL+"get_profile_details";
-    public static String upload_profile_image =BASE_URL+ "update_profile_image";
+    public static final String UPDATE_PROFILE = BASE_URL+"update_profile";
+    public static final String GET_PROFILE = BASE_URL+"get_profile_details";
+    public static final String upload_profile_image =BASE_URL+ "update_profile_image";
     public static final String GET_CONFIG =BASE_URL+"get_index";
     public static final String GET_CONTEST_DETAIL =BASE_URL+"get_contest_details";
     public static String ADD_FUND_REQUEST =BASE_URL+"add_fund_request";

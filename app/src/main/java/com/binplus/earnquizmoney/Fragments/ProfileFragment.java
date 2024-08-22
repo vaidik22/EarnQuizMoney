@@ -1,22 +1,60 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.binplus.earnquizmoney.Model.ProfileModel;
+import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
 import com.binplus.earnquizmoney.R;
+import com.binplus.earnquizmoney.retrofit.Api;
+import com.binplus.earnquizmoney.retrofit.RetrofitClient;
+import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ProfileFragment extends Fragment {
 
-LinearLayout layout_basic,layout_basic_edit,layout_social,layout_social_media,layout_refer,layout_basic_refer;
-ImageView img_down_basic,img_down_social,img_down_refer;
+    LinearLayout layout_basic,layout_basic_edit,layout_social,layout_social_media,layout_refer,layout_basic_refer;
+    ImageView img_down_basic,img_down_social,img_down_refer;
+    FrameLayout editProfileImg;
+    CircleImageView iv_cir;
+    ArrayList<ProfileModel.Data> profileList = new ArrayList<>();
+    UpdateProfileImageModel updateProfileImageModel;
+    Api apiInterface;
+
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
+    private static final int PICK_IMAGE_REQUEST = 1;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -32,6 +70,8 @@ ImageView img_down_basic,img_down_social,img_down_refer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
+        updateProfileImageModel = new UpdateProfileImageModel();
 
     }
 
@@ -41,6 +81,7 @@ ImageView img_down_basic,img_down_social,img_down_refer;
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initview(view);
+        fetchProfileDetails();
         allClick();
         return  view;
     }
@@ -82,7 +123,144 @@ ImageView img_down_basic,img_down_social,img_down_refer;
                 }
             }
         });
+        editProfileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    openImagePicker();
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+                }
+            }
+        });
     }
+
+    private void openImagePicker() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryIntent.setType("image/*");
+        Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Image");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { cameraIntent });
+
+        if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+        } else {
+            // If no camera app is available, show the gallery picker
+            startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == getActivity().RESULT_OK) {
+            if (requestCode == PICK_IMAGE_REQUEST) {
+                if (data != null) {
+                    if (data.getData() != null) {
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
+                            iv_cir.setImageBitmap(bitmap);
+                            String base64Image = convertBitmapToBase64(bitmap);
+                            updateProfile(base64Image);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (data.getExtras() != null) {
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        iv_cir.setImageBitmap(bitmap);
+                        String base64Image = convertBitmapToBase64(bitmap);
+                        updateProfile(base64Image);
+                    }
+                }
+            }
+        }
+    }
+
+    private String convertBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+            String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+            Log.d("Base64Image", "Base64 Image String Length: " + base64Image.length());
+
+            return base64Image;
+        } catch (Exception e) {
+            Log.e("Base64Error", "Error converting bitmap to Base64", e);
+            return null;
+        } finally {
+            try {
+                byteArrayOutputStream.close();
+            } catch (Exception e) {
+                Log.e("StreamCloseError", "Error closing ByteArrayOutputStream", e);
+            }
+        }
+    }
+
+
+    private void fetchProfileDetails() {
+        profileList.clear();
+        JsonObject postData = new JsonObject();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String authId = sharedPreferences.getString("userId", "Default Id");
+        postData.addProperty("user_id", authId);
+
+        Call<ProfileModel> call = apiInterface.getProfileApi(postData);
+        call.enqueue(new Callback<ProfileModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ProfileModel> call, @NonNull Response<ProfileModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                        profileList.add(response.body().getData());
+                    updateUI(profileList);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProfileModel> call, @NonNull Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+    private void updateProfile(String imageUri) {
+        profileList.clear();
+        JsonObject postData = new JsonObject();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String authId = sharedPreferences.getString("userId", "Default Id");
+        postData.addProperty("update_profile", "1");
+        postData.addProperty("user_id", authId);
+        postData.addProperty("profile", imageUri);
+
+        Call<ProfileModel> call = apiInterface.getProfileImageApi(postData);
+        call.enqueue(new Callback<ProfileModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ProfileModel> call, @NonNull Response<ProfileModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                   // Toast.makeText(getContext(),updateProfileImageModel.getMessage(), Toast.LENGTH_SHORT).show();
+                    updateProfileImageModel.getMessage();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProfileModel> call, @NonNull Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+    private void updateUI(ArrayList<ProfileModel.Data> profile) {
+        String imageUrl = BASE_URL_IMAGE + profile.get(0).getProfile();
+        Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_user)
+                .error(R.drawable.ic_user)
+                .into(iv_cir);
+
+
+
+    }
+
 
     private void initview(View view) {
         layout_basic = view.findViewById(R.id.layout_basic);
@@ -94,5 +272,7 @@ ImageView img_down_basic,img_down_social,img_down_refer;
         layout_refer = view.findViewById(R.id.layout_refer);
         layout_basic_refer = view.findViewById(R.id.layout_basic_refer);
         img_down_refer = view.findViewById(R.id.img_down_refer);
+        editProfileImg = view.findViewById(R.id.edit_profile_img);
+        iv_cir = view.findViewById(R.id.iv_cir);
     }
 }
