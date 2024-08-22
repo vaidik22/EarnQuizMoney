@@ -25,17 +25,26 @@
             android:id="@+id/iv_cir"
             android:layout_centerHorizontal="true"
             app:civ_border_color="@color/white"
-            android:layout_width="@dimen/dimen_45"
-            android:layout_height="@dimen/dimen_45"/>
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:src="@drawable/pencil"
-            android:layout_marginStart="-15pt"
-            android:layout_marginTop="-9pt"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"/>
+        <FrameLayout
+            android:layout_width="@dimen/space_15"
+            android:layout_height="@dimen/space_15"
+            android:layout_marginStart="-17pt"
+            android:background="@drawable/background_purple_fill"
+            android:layout_marginTop="-18pt"
             android:layout_below="@id/iv_cir"
             android:layout_toEndOf="@id/iv_cir"
-            android:layout_width="@dimen/space_10"
-            android:layout_height="@dimen/space_10"/>
+            >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_edit"
+            android:background="@drawable/pencil"
+            android:backgroundTint="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/space_8"
+            android:layout_height="@dimen/space_8"
+            />
+        </FrameLayout>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,6 +59,7 @@
             android:text="User"
             android:gravity="center"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="@dimen/space_8"
             />
@@ -59,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="phone number"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/space_6"
@@ -89,6 +100,7 @@
             />
             <ImageView
                 android:layout_weight="1"
+                android:id="@+id/img_down_basic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/down"/>
@@ -96,12 +108,12 @@
 
            <LinearLayout
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"
+               android:layout_height="320dp"
                android:orientation="vertical"
                android:id="@+id/layout_basic_edit"
                android:visibility="gone"
                android:layout_margin="@dimen/space_5"
-               tools:ignore="MissingConstraints">
+               >
 
                <LinearLayout
                    android:layout_width="match_parent"
@@ -115,7 +127,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        android:text="@string/username"
                        />
 
@@ -124,7 +136,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        android:layout_marginStart="8dp"
                        android:text="@string/mobile_number" />
 
@@ -139,24 +151,25 @@
                    <EditText
                        android:id="@+id/username"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
                        android:layout_weight="1"
                        android:background="@drawable/border_black"
                        android:hint="Username"
                        android:inputType="textPersonName"
-                       android:padding="12dp" />
+                       android:padding="5dp" />
 
                    <EditText
                        android:id="@+id/mobile_number"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
+                       android:padding="5dp"
                        android:layout_weight="1"
                        android:background="@drawable/border_black"
                        android:hint="Phone"
                        android:inputType="phone"
-                       android:padding="12dp"
                        android:layout_marginStart="8dp" />
-
                </LinearLayout>
                <LinearLayout
                    android:layout_width="match_parent"
@@ -170,7 +183,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        android:text="Email"
                        />
 
@@ -179,7 +192,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
 
                        android:layout_marginStart="8dp"
                        android:text="Age" />
@@ -196,21 +209,23 @@
                    <EditText
                        android:id="@+id/email"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
+                       android:padding="5dp"
                        android:layout_weight="1"
                        android:hint="Email"
                        android:inputType="textEmailAddress"
-                       android:padding="12dp"
                        android:background="@drawable/border_black"/>
 
                    <EditText
                        android:id="@+id/age"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
+                       android:padding="5dp"
                        android:layout_weight="1"
                        android:hint="Age"
                        android:inputType="number"
-                       android:padding="12dp"
                        android:layout_marginStart="8dp"
                        android:background="@drawable/border_black"/>
 
@@ -227,7 +242,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        android:text="State"
                        />
 
@@ -236,7 +251,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        android:layout_marginStart="8dp"
                        android:text="District" />
 
@@ -251,21 +266,23 @@
                    <EditText
                        android:id="@+id/state"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
+                       android:padding="5dp"
                        android:layout_weight="1"
                        android:hint="State"
                        android:inputType="text"
-                       android:padding="12dp"
                        android:background="@drawable/border_black"/>
 
                    <EditText
                        android:id="@+id/district"
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
+                       android:layout_height="35dp"
+                       android:textSize="12sp"
+                       android:padding="5dp"
                        android:layout_weight="1"
                        android:hint="District"
                        android:inputType="text"
-                       android:padding="12dp"
                        android:layout_marginStart="8dp"
                        android:background="@drawable/border_black"/>
 
@@ -283,16 +300,17 @@
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
                        android:text="Address"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        />
                </LinearLayout>
                <EditText
                    android:id="@+id/address"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
+                   android:textSize="12sp"
+                   android:padding="5dp"
                    android:hint="Address"
                    android:inputType="text"
-                   android:padding="12dp"
                    android:background="@drawable/border_black"/>
 
                <Button
@@ -326,6 +344,7 @@
             />
             <ImageView
                 android:layout_weight="1"
+                android:id="@+id/img_down_social"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/down"/>
@@ -333,7 +352,7 @@
 
            <LinearLayout
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"
+               android:layout_height="200dp"
                android:orientation="vertical"
                android:id="@+id/layout_social_media"
                android:visibility="gone"
@@ -352,16 +371,17 @@
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
                        android:text="Facebook"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        />
                </LinearLayout>
                <EditText
                    android:id="@+id/et_address"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
+                   android:textSize="12sp"
+                   android:padding="5dp"
                    android:hint="Facebook"
                    android:inputType="text"
-                   android:padding="12dp"
                    android:background="@drawable/border_black"/>
 
                <LinearLayout
@@ -377,16 +397,17 @@
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
                        android:text="Whatsaap"
-                       android:textSize="18sp"
+                       android:textSize="15sp"
                        />
                </LinearLayout>
                <EditText
                    android:id="@+id/whatsaap"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
+                   android:textSize="12sp"
+                   android:padding="5dp"
                    android:hint="Whatsaap"
                    android:inputType="text"
-                   android:padding="12dp"
                    android:background="@drawable/border_black"/>
 
                <Button
@@ -420,6 +441,7 @@
             />
             <ImageView
                 android:layout_weight="1"
+                android:id="@+id/img_down_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/down"/>
@@ -441,10 +463,11 @@
                <EditText
                    android:id="@+id/refer_id"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
+                   android:textSize="12sp"
+                   android:padding="5dp"
                    android:hint="Refer ID"
                    android:inputType="text"
-                   android:padding="12dp"
                    android:background="@drawable/border_black"/>
 
                <Button

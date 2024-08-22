@@ -5,7 +5,7 @@ public class BaseURL {
     public static String BASE_URL_IMAGE = "https://gyanmoney.in/dev/";
     public static final String BASE_URL = "https://gyanmoney.in/dev/rest_api/";
     public static final String SIGN_UP = BASE_URL+"sign_up";
-    public static String CONSTEST_BY_RESULT = BASE_URL+"get_contest_by_result";
+    public static String CONTEST_BY_RESULT = BASE_URL+"get_contest_by_result";
     public static final String VERIFY_OTP = BASE_URL+"verify_otp";
     public static final String LOGIN=BASE_URL+"login";
     public static final String REFER_EARN=BASE_URL+"refer_and_earn";

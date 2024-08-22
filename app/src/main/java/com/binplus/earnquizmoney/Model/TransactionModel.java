@@ -9,6 +9,14 @@ public class TransactionModel {
     public int total;
     public ArrayList<Datum> data;
 
+    public TransactionModel(boolean error, String message, String page_no, int total, ArrayList<Datum> data) {
+        this.error = error;
+        this.message = message;
+        this.page_no = page_no;
+        this.total = total;
+        this.data = data;
+    }
+
     public boolean isError() {
         return error;
     }

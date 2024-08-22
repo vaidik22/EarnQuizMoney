@@ -26,6 +26,7 @@ import com.binplus.earnquizmoney.Fragments.SupportFragment;
 import com.binplus.earnquizmoney.Fragments.TermsAndConditionsFragment;
 import com.binplus.earnquizmoney.Fragments.WalletFragment;
 import com.binplus.earnquizmoney.Fragments.WithdrawFragment;
+import com.binplus.earnquizmoney.Fragments.WithdrawalWalletTransFragment;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.common.Common;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ImageView wallet_icon;
     private DrawerLayout drawerLayout;
     private TextView user_name, user_phone;
+    private ImageView settings;
     private Common common;
     NavigationView navigationView;
     private Toolbar topNavigation;
@@ -61,7 +63,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         user_name = headerView.findViewById(R.id.user_name);
         user_phone = headerView.findViewById(R.id.user_phone);
-
+        settings = headerView.findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(navigationView);
+                topNavigation.setVisibility(View.GONE);
+                navigationViewToolbar.setVisibility(View.VISIBLE);
+                Fragment selectedFragment = new ProfileFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.homeFragment, selectedFragment)
+                        .commit();
+            }
+        });
         user_name.setText(userName);
         user_phone.setText(userMobile);
 
@@ -96,6 +111,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+            topNavigation.setVisibility(View.VISIBLE);
+            navigationViewToolbar.setVisibility(View.GONE);
+            bottomNavigationView.setVisibility(View.VISIBLE);
         }
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,22 +138,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
-                if (item.getItemId() == R.id.navigation_home)
+                if (item.getItemId() == R.id.navigation_home) {
                     selectedFragment = new HomePage();
-                topNavigation.setVisibility(View.VISIBLE);
-                navigationViewToolbar.setVisibility(View.GONE);
-                if (item.getItemId() == R.id.navigation_add_money)
+                    topNavigation.setVisibility(View.VISIBLE);
+                    navigationViewToolbar.setVisibility(View.GONE);
+                    bottomNavigationView.setVisibility(View.VISIBLE);
+                }else if (item.getItemId() == R.id.navigation_add_money) {
                     selectedFragment = new AddMoneyFragment();
-                topNavigation.setVisibility(View.VISIBLE);
-                navigationViewToolbar.setVisibility(View.GONE);
-                if (item.getItemId() == R.id.navigation_my_quiz)
+                    topNavigation.setVisibility(View.GONE);
+                    navigationViewToolbar.setVisibility(View.VISIBLE);
+                }
+                else if (item.getItemId() == R.id.navigation_my_quiz) {
                     selectedFragment = new RankingFragment();
-                topNavigation.setVisibility(View.VISIBLE);
-                navigationViewToolbar.setVisibility(View.GONE);
-                if (item.getItemId() == R.id.navigation_profile)
+                    topNavigation.setVisibility(View.GONE);
+                    navigationViewToolbar.setVisibility(View.VISIBLE);
+                }
+                else if (item.getItemId() == R.id.navigation_profile) {
                     selectedFragment = new ProfileFragment();
-                topNavigation.setVisibility(View.VISIBLE);
-                navigationViewToolbar.setVisibility(View.GONE);
+                    topNavigation.setVisibility(View.GONE);
+                    navigationViewToolbar.setVisibility(View.VISIBLE);
+                }
                 getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, selectedFragment).commit();
                 return true;
             }

@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/earner_amount"
+            android:id="@+id/available_balance"
             android:text="Rs. 0"
             android:textColor="@color/white"
             android:textStyle="bold"
