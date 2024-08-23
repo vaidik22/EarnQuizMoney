@@ -1,8 +1,10 @@
 package com.binplus.earnquizmoney.Fragments;
 
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.upload_profile_image;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,13 +23,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
+import com.binplus.earnquizmoney.Model.UpdateProfileModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
@@ -50,9 +56,13 @@ public class ProfileFragment extends Fragment {
     FrameLayout editProfileImg;
     CircleImageView iv_cir;
     ArrayList<ProfileModel.Data> profileList = new ArrayList<>();
-    UpdateProfileImageModel updateProfileImageModel;
+    ArrayList<UpdateProfileModel.Data> updatedProfileList = new ArrayList<>();
     Api apiInterface;
-
+    TextView tv_name,tv_user_mobile,tv_total_played,tv_total_spent,tv_total_earned;
+    EditText username,mobile_number,email,age,state,district,address,et_facebook,whatsaap,et_refer;
+    Button btn_submit_basic,btn_submit_social,btn_submit_refer;
+    String base64Image;
+    UpdateProfileModel updateProfileModel;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
     private static final int PICK_IMAGE_REQUEST = 1;
     public ProfileFragment() {
@@ -71,7 +81,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
-        updateProfileImageModel = new UpdateProfileImageModel();
+         updateProfileModel = new UpdateProfileModel();
 
     }
 
@@ -134,6 +144,12 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+        btn_submit_basic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProfile(base64Image);
+            }
+        });
     }
 
     private void openImagePicker() {
@@ -161,7 +177,7 @@ public class ProfileFragment extends Fragment {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
                             iv_cir.setImageBitmap(bitmap);
-                            String base64Image = convertBitmapToBase64(bitmap);
+                            base64Image = convertBitmapToBase64(bitmap);
                             updateProfile(base64Image);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -232,23 +248,30 @@ public class ProfileFragment extends Fragment {
         postData.addProperty("update_profile", "1");
         postData.addProperty("user_id", authId);
         postData.addProperty("profile", imageUri);
+        postData.addProperty("name", username.getText().toString());
+        postData.addProperty("email", email.getText().toString());
+        postData.addProperty("mobile", mobile_number.getText().toString());
 
-        Call<ProfileModel> call = apiInterface.getProfileImageApi(postData);
-        call.enqueue(new Callback<ProfileModel>() {
+
+        Call<UpdateProfileModel> call = apiInterface.getUpdateProfileApi(postData);
+        call.enqueue(new Callback<UpdateProfileModel>() {
             @Override
-            public void onResponse(@NonNull Call<ProfileModel> call, @NonNull Response<ProfileModel> response) {
+            public void onResponse(@NonNull Call<UpdateProfileModel> call, @NonNull Response<UpdateProfileModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                   // Toast.makeText(getContext(),updateProfileImageModel.getMessage(), Toast.LENGTH_SHORT).show();
-                    updateProfileImageModel.getMessage();
+                    UpdateProfileModel updateProfileModel = response.body();
+                    String message = updateProfileModel.getMessage();
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                    updatedProfileList.add(updateProfileModel.getData());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ProfileModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UpdateProfileModel> call, @NonNull Throwable t) {
                 // Handle failure
             }
         });
     }
+    @SuppressLint("SetTextI18n")
     private void updateUI(ArrayList<ProfileModel.Data> profile) {
         String imageUrl = BASE_URL_IMAGE + profile.get(0).getProfile();
         Picasso.get()
@@ -256,9 +279,19 @@ public class ProfileFragment extends Fragment {
                 .placeholder(R.drawable.ic_user)
                 .error(R.drawable.ic_user)
                 .into(iv_cir);
-
-
-
+        tv_name.setText(profile.get(0).getName());
+        tv_user_mobile.setText(profile.get(0).getMobile());
+        tv_total_played.setText(profile.get(0).getTotal_played_game());
+        tv_total_spent.setText("Rs."+profile.get(0).getTotal_amount_spend());
+        tv_total_earned.setText("Rs."+profile.get(0).getTotal_amount_earned());
+        username.setText(profile.get(0).getName());
+        mobile_number.setText(profile.get(0).getMobile());
+        email.setText(profile.get(0).getEmail());
+        age.setText(profile.get(0).getAge());
+        state.setText(profile.get(0).getState());
+        district.setText(profile.get(0).getDistrict());
+        address.setText(profile.get(0).getAddress());
+        et_refer.setText(profile.get(0).getRefer_code());
     }
 
 
@@ -274,5 +307,21 @@ public class ProfileFragment extends Fragment {
         img_down_refer = view.findViewById(R.id.img_down_refer);
         editProfileImg = view.findViewById(R.id.edit_profile_img);
         iv_cir = view.findViewById(R.id.iv_cir);
+        tv_name = view.findViewById(R.id.tv_name);
+        tv_user_mobile = view.findViewById(R.id.tv_user_mobile);
+        tv_total_played = view.findViewById(R.id.tv_total_played);
+        tv_total_spent = view.findViewById(R.id.tv_total_spent);
+        tv_total_earned = view.findViewById(R.id.tv_total_earned);
+        username = view.findViewById(R.id.username);
+        mobile_number = view.findViewById(R.id.mobile_number);
+        email = view.findViewById(R.id.email);
+        age = view.findViewById(R.id.age);
+        state = view.findViewById(R.id.state);
+        district = view.findViewById(R.id.district);
+        address = view.findViewById(R.id.address);
+        et_facebook = view.findViewById(R.id.et_facebook);
+        whatsaap = view.findViewById(R.id.whatsaap);
+        et_refer = view.findViewById(R.id.et_refer);
+        btn_submit_basic = view.findViewById(R.id.btn_submit_basic);
     }
 }

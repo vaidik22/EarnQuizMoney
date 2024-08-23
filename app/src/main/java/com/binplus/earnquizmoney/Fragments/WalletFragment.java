@@ -11,8 +11,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.binplus.earnquizmoney.Adapters.ViewPagerAdapterWallet;
+import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.Model.TransactionModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
@@ -32,9 +34,11 @@ public class WalletFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapterWallet viewPagerAdapter;
-    private ArrayList<TransactionModel.Datum> transactionList;
+    ArrayList<TransactionModel.Datum> transactionList = new ArrayList<>();
     Api apiInterface;
     String key = "2";
+    ArrayList<ProfileModel.Data> profile = new ArrayList<>();
+    TextView available_balance;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -60,11 +64,13 @@ public class WalletFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_wallet, container, false);
         initview(view);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String balance = sharedPreferences.getString("wallet_balance", "0");
+        available_balance.setText("Rs."+balance);
         fetchTransactions();
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
-    return  view;
+        return view;
     }
     private void fetchTransactions() {
         transactionList.clear();
@@ -107,5 +113,6 @@ public class WalletFragment extends Fragment {
     private void initview(View view) {
         viewPager = view.findViewById(R.id.viewPager);
         tabLayout = view.findViewById(R.id.tabLayout);
+        available_balance = view.findViewById(R.id.available_balance);
     }
 }

@@ -27,11 +27,21 @@ import com.binplus.earnquizmoney.Fragments.TermsAndConditionsFragment;
 import com.binplus.earnquizmoney.Fragments.WalletFragment;
 import com.binplus.earnquizmoney.Fragments.WithdrawFragment;
 import com.binplus.earnquizmoney.Fragments.WithdrawalWalletTransFragment;
+import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.common.Common;
+import com.binplus.earnquizmoney.retrofit.Api;
+import com.binplus.earnquizmoney.retrofit.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -46,14 +56,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar navigationViewToolbar;
     private TextView toolbarTitle;
     ImageView back_icon;
+    Api apiInterface;
+    ArrayList<ProfileModel.Data> profileList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
         initView();
-
+        fetchProfileDetails();
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String userName = sharedPreferences.getString("userName", "Default Name");
         String userMobile = sharedPreferences.getString("userMobile", "Default Mobile");
@@ -130,6 +142,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+    private void fetchProfileDetails() {
+        profileList.clear();
+        JsonObject postData = new JsonObject();
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String authId = sharedPreferences.getString("userId", "Default Id");
+        postData.addProperty("user_id", authId);
+
+        Call<ProfileModel> call = apiInterface.getProfileApi(postData);
+        call.enqueue(new Callback<ProfileModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ProfileModel> call, @NonNull Response<ProfileModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    profileList.add(response.body().getData());
+                    ProfileModel.Data profileData = profileList.get(0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("wallet_balance", profileData.getWallet());
+                    editor.apply();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProfileModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
 
     private void bottomNavigationHandler() {
         bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);

@@ -40,6 +40,7 @@ public class WithdrawFragment extends Fragment {
     private ArrayList<TransactionModel.Datum> transactionList;
     Api apiInterface;
     String key = "2";
+    TextView available_balance;;
 
     public WithdrawFragment() {
         // Required empty public constructor
@@ -64,6 +65,10 @@ public class WithdrawFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_withdraw, container, false);
+        available_balance = view.findViewById(R.id.available_balance);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String balance = sharedPreferences.getString("wallet_balance", "0");
+        available_balance.setText("Rs."+balance);
         textInputError = view.findViewById(R.id.textinput_error);
         recyclerView = view.findViewById(R.id.rev_withdraw);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

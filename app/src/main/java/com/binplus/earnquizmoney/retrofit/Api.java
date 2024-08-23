@@ -27,6 +27,7 @@ import com.binplus.earnquizmoney.Model.ReferModel;
 import com.binplus.earnquizmoney.Model.SignUpModel;
 import com.binplus.earnquizmoney.Model.TransactionModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
+import com.binplus.earnquizmoney.Model.UpdateProfileModel;
 import com.binplus.earnquizmoney.Model.UpdateScoreModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
 import com.google.gson.JsonObject;
@@ -78,6 +79,6 @@ public interface Api {
     Call<ProfileModel> getProfileApi(@Body JsonObject postData);
 
     @POST(UPDATE_PROFILE)
-    Call<ProfileModel> getProfileImageApi(@Body JsonObject postData);
+    Call<UpdateProfileModel> getUpdateProfileApi(@Body JsonObject postData);
 
 }

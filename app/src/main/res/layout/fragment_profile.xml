@@ -376,7 +376,7 @@
                        />
                </LinearLayout>
                <EditText
-                   android:id="@+id/et_address"
+                   android:id="@+id/et_facebook"
                    android:layout_width="match_parent"
                    android:layout_height="35dp"
                    android:textSize="12sp"
@@ -414,7 +414,7 @@
                <Button
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:id="@+id/btn_submit_refer"
+                   android:id="@+id/btn_submit_social"
                    android:background="@drawable/button_background"
                    android:layout_marginTop="@dimen/space_5"
                    android:layout_gravity="center"
@@ -462,7 +462,7 @@
                    android:weightSum="2"
                    android:paddingBottom="8dp"/>
                <EditText
-                   android:id="@+id/refer_id"
+                   android:id="@+id/et_refer"
                    android:layout_width="match_parent"
                    android:layout_height="35dp"
                    android:textSize="12sp"
@@ -474,7 +474,7 @@
                <Button
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:id="@+id/btn_submit"
+                   android:id="@+id/btn_submit_refer"
                    android:background="@drawable/button_background"
                    android:layout_marginTop="@dimen/space_5"
                    android:layout_gravity="center"

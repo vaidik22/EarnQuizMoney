@@ -1,5 +1,7 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
     TextView tv_open_wallet;
     Common common;
     TextView tv_add_money;
+    TextView available_balance;
 
     public AddMoneyFragment() {
         // Required empty public constructor
@@ -69,6 +72,9 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
         recyclerView = view.findViewById(R.id.rev_money);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         initView(view);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String balance = sharedPreferences.getString("wallet_balance", "0");
+        available_balance.setText("Rs."+balance);
         allClicks();
         fetchAddMoneyValue();
 
@@ -97,6 +103,8 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
         et_money = view.findViewById(R.id.et_money);
         tv_open_wallet = view.findViewById(R.id.tv_open_wallet);
         tv_add_money = view.findViewById(R.id.tv_add_money);
+        available_balance = view.findViewById(R.id.available_balance);
+        Checkout.preload(getContext());
     }
     private void startPayment() {
         String money = et_money.getText().toString().trim();
