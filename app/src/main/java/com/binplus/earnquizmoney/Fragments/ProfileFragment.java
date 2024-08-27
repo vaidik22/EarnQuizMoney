@@ -1,5 +1,6 @@
 package com.binplus.earnquizmoney.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.upload_profile_image;
 
@@ -31,11 +32,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.binplus.earnquizmoney.Activity.HomeActivity;
+import com.binplus.earnquizmoney.Activity.MainActivity;
 import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
+import com.binplus.earnquizmoney.retrofit.ConfigModel;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -50,8 +54,14 @@ import retrofit2.Response;
 
 
 public class ProfileFragment extends Fragment {
-
-    LinearLayout layout_basic,layout_basic_edit,layout_social,layout_social_media,layout_refer,layout_basic_refer;
+    ImageView instagram_icon;
+    ImageView facebook_icon;
+    ImageView twitter_icon;
+    String instagramLink;
+    String facebookUrl;
+    String twitterLink;
+    TextView tv_logout;
+    LinearLayout layout_basic,layout_basic_edit,layout_social,layout_social_media,layout_refer,layout_basic_refer,layout_bank;
     ImageView img_down_basic,img_down_social,img_down_refer;
     FrameLayout editProfileImg;
     CircleImageView iv_cir;
@@ -65,6 +75,7 @@ public class ProfileFragment extends Fragment {
     UpdateProfileModel updateProfileModel;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
     private static final int PICK_IMAGE_REQUEST = 1;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -93,6 +104,9 @@ public class ProfileFragment extends Fragment {
         initview(view);
         fetchProfileDetails();
         allClick();
+        fetchConfigData();
+        fetchConfigDataFaceBook();
+        fetchConfigDataTwitter();
         return  view;
     }
 
@@ -150,8 +164,131 @@ public class ProfileFragment extends Fragment {
                 updateProfile(base64Image);
             }
         });
+        layout_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open bank details fragment
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment,new BankDetails())
+                        .addToBackStack(null).commit();
+            }
+        });
+        instagram_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callInstagramLink();
+            }
+        });
+        facebook_icon.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callFaceBookLink();
+            }
+        }));
+        twitter_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callTwitterLink();
+            }
+        });
+        tv_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("IsLoggedIn", false);
+                editor.apply();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void fetchConfigData() {
+        Call<ConfigModel> call = apiInterface.getIndexApi();
+        call.enqueue(new Callback<ConfigModel>() {
+            @Override
+            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ConfigModel configModel = response.body();
+                    if (configModel.getData() != null) {
+                        instagramLink = configModel.getData().getInstagram_link();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConfigModel> call, Throwable t) {
+                // Handle the error
+            }
+        });
+    }
+    private void fetchConfigDataFaceBook() {
+        Call<ConfigModel> call = apiInterface.getIndexApi();
+        call.enqueue(new Callback<ConfigModel>() {
+            @Override
+            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ConfigModel configModel = response.body();
+                    if (configModel.getData() != null) {
+                        facebookUrl = configModel.getData().getFacebook_link();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConfigModel> call, Throwable t) {
+                // Handle the error
+            }
+        });
+    }
+    private void fetchConfigDataTwitter() {
+        Call<ConfigModel> call = apiInterface.getIndexApi();
+        call.enqueue(new Callback<ConfigModel>() {
+            @Override
+            public void onResponse(Call<ConfigModel> call, Response<ConfigModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ConfigModel configModel = response.body();
+                    if (configModel.getData() != null) {
+                        twitterLink= configModel.getData().getTwitter_link();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConfigModel> call, Throwable t) {
+                // Handle the error
+            }
+        });
     }
 
+
+    private void callInstagramLink() {
+        if (instagramLink != null && !instagramLink.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(instagramLink));
+            startActivity(intent);
+        } else {
+            // Handle the case where the link is not available
+        }
+    }
+    private void callFaceBookLink() {
+        if (facebookUrl != null && !facebookUrl.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(facebookUrl));
+            startActivity(intent);
+        } else {
+            // Handle the case where the link is not available
+        }
+    }
+
+    private void callTwitterLink() {
+        if (twitterLink != null && !twitterLink.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(twitterLink));
+            startActivity(intent);
+        } else {
+            // Handle the case where the link is not available
+        }
+    }
     private void openImagePicker() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -220,7 +357,7 @@ public class ProfileFragment extends Fragment {
     private void fetchProfileDetails() {
         profileList.clear();
         JsonObject postData = new JsonObject();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
         String authId = sharedPreferences.getString("userId", "Default Id");
         postData.addProperty("user_id", authId);
 
@@ -243,7 +380,7 @@ public class ProfileFragment extends Fragment {
     private void updateProfile(String imageUri) {
         profileList.clear();
         JsonObject postData = new JsonObject();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
         String authId = sharedPreferences.getString("userId", "Default Id");
         postData.addProperty("update_profile", "1");
         postData.addProperty("user_id", authId);
@@ -323,5 +460,10 @@ public class ProfileFragment extends Fragment {
         whatsaap = view.findViewById(R.id.whatsaap);
         et_refer = view.findViewById(R.id.et_refer);
         btn_submit_basic = view.findViewById(R.id.btn_submit_basic);
+        layout_bank = view.findViewById(R.id.layout_bank);
+        instagram_icon = view.findViewById(R.id.instagram_icon);
+        facebook_icon = view.findViewById(R.id.facebook_icon);
+        twitter_icon = view.findViewById(R.id.twitter_icon);
+        tv_logout = view.findViewById(R.id.tv_logout);
     }
 }

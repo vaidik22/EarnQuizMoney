@@ -55,4 +55,6 @@
     <string name="username">Username</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="submit">Submit</string>
+    <string name="upi_details">UPI Details</string>
+    <string name="bank_details">Bank Details</string>
 </resources>

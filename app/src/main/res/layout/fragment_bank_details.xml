@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.BankDetails"
+    android:padding="@dimen/space_10">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_layout"
+        android:layout_above="@id/save_button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/upi_details"
+                android:textSize="@dimen/space_8"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Google Pay Number"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_googlePay_num"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="Google Pay Number"
+                android:background="@drawable/rounder_edittext_grey"
+                /><TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PhonePe Number"
+            android:layout_marginTop="@dimen/space_3"
+            android:textSize="@dimen/space_6"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_phonePe_num"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="PhonePe Number"
+                android:background="@drawable/rounder_edittext_grey"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paytm Number"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_paytm_num"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="Paytm Number"
+                android:background="@drawable/rounder_edittext_grey"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bank_details"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_8"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name on Bank"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_name_on_bank"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="Name"
+                android:background="@drawable/rounder_edittext_grey"
+                /><TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bank Name"
+            android:layout_marginTop="@dimen/space_3"
+            android:textSize="@dimen/space_6"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_bank_name"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="Bank name"
+                android:background="@drawable/rounder_edittext_grey"
+                /><TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Number"
+            android:layout_marginTop="@dimen/space_3"
+            android:textSize="@dimen/space_6"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_account_number"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="Account Number"
+                android:background="@drawable/rounder_edittext_grey"
+                /><TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IFSC Code"
+            android:layout_marginTop="@dimen/space_3"
+            android:textSize="@dimen/space_6"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_ifsc_code"
+                android:layout_marginTop="@dimen/space_3"
+                android:textSize="@dimen/space_6"
+                android:paddingLeft="@dimen/space_3"
+                android:textStyle="bold"
+                android:hint="IFSC Code"
+                android:background="@drawable/rounder_edittext_grey"
+
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_background"
+        android:text="Save Details"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

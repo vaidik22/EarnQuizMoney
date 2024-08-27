@@ -42,10 +42,5 @@
         android:id="@+id/Refer_and_Earn"
         android:icon="@drawable/exchange"
         android:title="@string/refer_and_earn"/>
-    <item
-        android:id="@+id/Logout"
-        android:icon="@drawable/logout"
-        android:title="@string/logout"
-        />
 
 </menu>

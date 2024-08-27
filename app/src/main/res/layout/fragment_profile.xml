@@ -10,7 +10,7 @@
     <View
         android:id="@+id/headerBackground"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:background="@drawable/purple_background" />
     <RelativeLayout
         android:layout_marginTop="-50dp"
@@ -509,8 +509,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:text="Logout"
-            android:layout_marginTop="@dimen/space_7"
+            android:layout_marginTop="@dimen/space_5"
             android:textStyle="bold"
             android:textColor="@color/red"
             android:textSize="@dimen/space_7"
@@ -522,8 +523,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             android:background="@drawable/border_black"
-            android:layout_margin="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_5"
             android:padding="@dimen/space_2"
             >
             <LinearLayout
@@ -544,6 +546,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_total_played"
+                    android:textStyle="bold"
                     android:text="17"
                    />
             </LinearLayout>
@@ -571,6 +574,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_total_spent"
+                    android:textStyle="bold"
                     android:text="17"
                     />
             </LinearLayout>
@@ -598,12 +602,55 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_total_earned"
+                    android:textStyle="bold"
                     android:text="17"
                     />
             </LinearLayout>
 
         </LinearLayout>
        </LinearLayout>
+
         </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share App"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/instagram_icon"
+                    android:background="@drawable/instagram" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/facebook_icon"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/facebook" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/twitter_icon"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/twitter" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

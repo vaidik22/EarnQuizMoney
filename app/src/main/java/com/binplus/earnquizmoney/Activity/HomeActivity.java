@@ -271,16 +271,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             selectedFragment = new ReferralFragment();
             title = "Refer and Earn";
         }
-        if (item.getItemId() == R.id.Logout) {
-            SharedPreferences preferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("IsLoggedIn", false);
-            editor.apply();
-            finish();
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
+//        if (item.getItemId() == R.id.Logout) {
+//
+//            return true;
+//        }
 
         if (drawerLayout.isDrawerOpen(navigationView)) {
             drawerLayout.closeDrawer(navigationView);
