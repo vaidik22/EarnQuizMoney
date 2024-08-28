@@ -51,6 +51,7 @@
             android:id="@+id/et_money"
             android:layout_weight="1.5"
             android:paddingLeft="10dp"
+            android:inputType="number"
             android:hint="Enter Amount Here"
             android:textSize="12sp"
             android:background="@drawable/rounder_edittext_grey"

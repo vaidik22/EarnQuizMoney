@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
     Common common;
     TextView tv_add_money;
     TextView available_balance;
+    ProgressBar progressBar;
 
     public AddMoneyFragment() {
         // Required empty public constructor
@@ -104,6 +106,7 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
         tv_open_wallet = view.findViewById(R.id.tv_open_wallet);
         tv_add_money = view.findViewById(R.id.tv_add_money);
         available_balance = view.findViewById(R.id.available_balance);
+        progressBar = view.findViewById(R.id.progressBar);
         Checkout.preload(getContext());
     }
     private void startPayment() {
@@ -142,6 +145,7 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
         // Handle failed payment here
     }
     private void fetchAddMoneyValue() {
+        progressBar.setVisibility(View.VISIBLE);
         apiService = RetrofitClient.getRetrofitInstance().create(Api.class);
         Call<ConfigModel> call = apiService.getIndexApi();
 
@@ -149,6 +153,8 @@ public class AddMoneyFragment extends Fragment implements OnMoneySelectedListene
             @Override
             public void onResponse(@NonNull Call<ConfigModel> call, @NonNull Response<ConfigModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     ConfigModel configModel = response.body();
                     String addMoneyValue = configModel.getData().getAdd_money_value();
                     try {

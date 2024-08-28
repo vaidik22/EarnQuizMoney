@@ -15,10 +15,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.binplus.earnquizmoney.Adapters.TransactionAdapter;
 import com.binplus.earnquizmoney.Model.TransactionModel;
+import com.binplus.earnquizmoney.Model.UpdateProfileModel;
+import com.binplus.earnquizmoney.Model.WithdrawModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
@@ -38,9 +42,12 @@ public class WithdrawFragment extends Fragment {
     TextView textInputError;
     long delay = 3000;
     private ArrayList<TransactionModel.Datum> transactionList;
+    private ArrayList<WithdrawModel> withdrawalList;
     Api apiInterface;
     String key = "2";
     TextView available_balance;;
+    EditText et_money;
+    TextView tv_add_money;
 
     public WithdrawFragment() {
         // Required empty public constructor
@@ -58,6 +65,7 @@ public class WithdrawFragment extends Fragment {
         super.onCreate(savedInstanceState);
         apiInterface = RetrofitClient.getRetrofitInstance().create(Api.class);
         transactionList = new ArrayList<>();
+        withdrawalList = new ArrayList<>();
     }
 
     @SuppressLint("MissingInflatedId")
@@ -70,10 +78,18 @@ public class WithdrawFragment extends Fragment {
         String balance = sharedPreferences.getString("wallet_balance", "0");
         available_balance.setText("Rs."+balance);
         textInputError = view.findViewById(R.id.textinput_error);
+        et_money = view.findViewById(R.id.et_money);
+        tv_add_money = view.findViewById(R.id.tv_add_money);
         recyclerView = view.findViewById(R.id.rev_withdraw);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TransactionAdapter(transactionList, "withdrawal");
         recyclerView.setAdapter(adapter);
+        tv_add_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWithdrawRequest();
+            }
+        });
         fetchTransactions();
 
         return view;
@@ -94,7 +110,7 @@ public class WithdrawFragment extends Fragment {
             public void onResponse(@NonNull Call<TransactionModel> call, @NonNull Response<TransactionModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData().isEmpty()) {
-                        showError(R.string.no_data_found);
+                        showError("No Data Found");
                     } else {
                         transactionList.addAll(response.body().getData());
                         adapter.notifyDataSetChanged();
@@ -107,8 +123,32 @@ public class WithdrawFragment extends Fragment {
                 // Handle failure
             }
         });
+    }private void sendWithdrawRequest() {
+        withdrawalList.clear();
+        JsonObject postData = new JsonObject();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String authId = sharedPreferences.getString("userId", "Default Id");
+        postData.addProperty("user_id", authId);
+        postData.addProperty("request_amount",et_money.getText().toString());
+
+        Call<WithdrawModel> call = apiInterface.getWithdrawalRequestApi(postData);
+        call.enqueue(new Callback<WithdrawModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WithdrawModel> call, @NonNull Response<WithdrawModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    WithdrawModel updateProfileModel = response.body();
+                    String message = updateProfileModel.getMessage();
+                     showError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WithdrawModel> call, @NonNull Throwable t) {
+                // Handle failure
+            }
+        });
     }
-    public void showError(int resId) {
+    public void showError(String resId) {
         textInputError.setText(resId);
         textInputError.setVisibility(View.VISIBLE);
         textInputError.setBackgroundColor(Color.RED);

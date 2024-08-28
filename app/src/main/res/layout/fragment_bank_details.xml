@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.BankDetails"
-    android:padding="@dimen/space_10">
+    >
 
     <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/detail_layout"
         android:layout_above="@id/save_button">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_3"
 
             android:orientation="vertical">
 
@@ -32,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="Google Pay Number"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_8"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -42,9 +44,10 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_googlePay_num"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:hint="Google Pay Number"
                 android:background="@drawable/rounder_edittext_grey"
                 /><TextView
@@ -52,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="PhonePe Number"
             android:layout_marginTop="@dimen/space_3"
-            android:textSize="@dimen/space_6"
+            android:textSize="@dimen/space_7"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -62,9 +65,10 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_phonePe_num"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:hint="PhonePe Number"
                 android:background="@drawable/rounder_edittext_grey"
                 />
@@ -73,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:text="Paytm Number"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -83,10 +87,11 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_paytm_num"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
                 android:hint="Paytm Number"
+                android:inputType="number"
                 android:background="@drawable/rounder_edittext_grey"
                 />
 
@@ -105,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name on Bank"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />
@@ -115,7 +120,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_name_on_bank"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
                 android:hint="Name"
@@ -125,7 +130,7 @@
             android:layout_height="wrap_content"
             android:text="Bank Name"
             android:layout_marginTop="@dimen/space_3"
-            android:textSize="@dimen/space_6"
+            android:textSize="@dimen/space_7"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -135,7 +140,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_bank_name"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
                 android:hint="Bank name"
@@ -145,7 +150,7 @@
             android:layout_height="wrap_content"
             android:text="Account Number"
             android:layout_marginTop="@dimen/space_3"
-            android:textSize="@dimen/space_6"
+            android:textSize="@dimen/space_7"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -155,9 +160,11 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_account_number"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
+                android:maxLength="15"
                 android:textStyle="bold"
+                android:inputType="number"
                 android:hint="Account Number"
                 android:background="@drawable/rounder_edittext_grey"
                 /><TextView
@@ -165,7 +172,7 @@
             android:layout_height="wrap_content"
             android:text="IFSC Code"
             android:layout_marginTop="@dimen/space_3"
-            android:textSize="@dimen/space_6"
+            android:textSize="@dimen/space_7"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -175,7 +182,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/et_ifsc_code"
                 android:layout_marginTop="@dimen/space_3"
-                android:textSize="@dimen/space_6"
+                android:textSize="@dimen/space_7"
                 android:paddingLeft="@dimen/space_3"
                 android:textStyle="bold"
                 android:hint="IFSC Code"
@@ -195,5 +202,21 @@
         android:background="@drawable/button_background"
         android:text="Save Details"
         android:textColor="@color/white" />
+    <TextView
+        android:id="@+id/textinput_error"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:gravity="start|center"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:paddingLeft="@dimen/dimen_5pt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_edittext"
+        android:text="Mobile Number Required"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>

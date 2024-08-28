@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardBackgroundColor="@color/white"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/cell_padding_vertical"
+            android:paddingHorizontal="@dimen/space_10">
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:textAlignment="center"
+                android:text="Logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextViewExtraSemBold"/>
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do you really want to logout"
+                android:textAlignment="center" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/space_5"
+                android:layout_marginVertical="@dimen/space_5"
+                android:orientation="horizontal">
+                <Button
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/btn_leave"
+                    android:text="Leave"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"/>
+                <Button
+                    android:id="@+id/btn_stay"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:text="Stay"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,13 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.upload_profile_image;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,9 +23,11 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -193,15 +197,47 @@ public class ProfileFragment extends Fragment {
         tv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("IsLoggedIn", false);
-                editor.apply();
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                openLogoutDialog();
             }
         });
     }
+
+private void openLogoutDialog(){
+    Dialog dialog;
+    dialog = new Dialog (getActivity ());
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.getWindow();
+    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.getWindow().setGravity(Gravity.CENTER);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+    dialog.setContentView (R.layout.dialoge_logout);
+    Button btn_leave,btn_stay;
+    btn_stay=dialog.findViewById (R.id.btn_stay);
+    btn_leave=dialog.findViewById (R.id.btn_leave);
+    btn_stay.setOnClickListener (new View.OnClickListener ( ) {
+        @Override
+        public void onClick(View v) {
+            dialog.dismiss ();
+
+        }
+    });
+
+    btn_leave.setOnClickListener (new View.OnClickListener ( ) {
+        @Override
+        public void onClick(View v) {
+            dialog.dismiss ();
+            SharedPreferences preferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("IsLoggedIn", false);
+            editor.apply();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    });
+    dialog.setCanceledOnTouchOutside (false);
+    dialog.show ();
+}
+
     private void fetchConfigData() {
         Call<ConfigModel> call = apiInterface.getIndexApi();
         call.enqueue(new Callback<ConfigModel>() {
@@ -378,7 +414,7 @@ public class ProfileFragment extends Fragment {
         });
     }
     private void updateProfile(String imageUri) {
-        profileList.clear();
+        updatedProfileList.clear();
         JsonObject postData = new JsonObject();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
         String authId = sharedPreferences.getString("userId", "Default Id");
@@ -413,8 +449,8 @@ public class ProfileFragment extends Fragment {
         String imageUrl = BASE_URL_IMAGE + profile.get(0).getProfile();
         Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_user)
-                .error(R.drawable.ic_user)
+                .placeholder(R.drawable.profile)
+                .error(R.drawable.profile)
                 .into(iv_cir);
         tv_name.setText(profile.get(0).getName());
         tv_user_mobile.setText(profile.get(0).getMobile());

@@ -72,6 +72,7 @@ public class HomePage extends Fragment {
     }
 
     private void callUpcomingQuizApi(String type) {
+        progressBar.setVisibility(View.VISIBLE);
         JsonObject params = new JsonObject();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String authId = sharedPreferences.getString("userId", "Default Id");
@@ -96,8 +97,6 @@ public class HomePage extends Fragment {
                     if(quizModel.getUpcoming_contest().getError().equalsIgnoreCase("true")){
                         no_upcoming_contest_layout.setVisibility(View.VISIBLE);
                         tv_message.setText(quizModel.getUpcoming_contest().getMessage());
-                        recyclerView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.GONE);
                     }
                     else if (data != null) {
                         no_upcoming_contest_layout.setVisibility(View.GONE);

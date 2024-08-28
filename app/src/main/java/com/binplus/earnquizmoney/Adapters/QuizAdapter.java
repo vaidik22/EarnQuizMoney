@@ -58,6 +58,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
             @Override
             public void onClick(View v) {
                 QuizDetailFragment quizDetailFragment = QuizDetailFragment.newInstance(quizModel);
+
                 fragmentManager
                         .beginTransaction()
                         .replace(R.id.homeFragment, quizDetailFragment)

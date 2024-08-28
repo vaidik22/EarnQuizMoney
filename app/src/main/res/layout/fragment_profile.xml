@@ -13,7 +13,7 @@
         android:layout_height="70dp"
         android:background="@drawable/purple_background" />
     <RelativeLayout
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-60dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/headerBackground"
         android:layout_height="wrap_content"
@@ -21,17 +21,18 @@
         android:layout_gravity="center">
         <de.hdodenhof.circleimageview.CircleImageView
             app:civ_border_width="@dimen/space_1"
-            android:src="@drawable/ic_user"
             android:id="@+id/iv_cir"
+            android:elevation="2dp"
             android:layout_centerHorizontal="true"
             app:civ_border_color="@color/white"
-            android:layout_width="@dimen/dimen_50"
-            android:layout_height="@dimen/dimen_50"/>
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"/>
         <FrameLayout
-            android:layout_width="@dimen/space_15"
-            android:layout_height="@dimen/space_15"
+            android:layout_width="@dimen/space_16"
+            android:layout_height="@dimen/space_16"
             android:layout_marginStart="-17pt"
             android:id="@+id/edit_profile_img"
+            android:elevation="2dp"
             android:background="@drawable/background_purple_fill"
             android:layout_marginTop="-18pt"
             android:layout_below="@id/iv_cir"
@@ -129,6 +130,8 @@
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
                        android:textSize="15sp"
+                       android:textColor="@color/black"
+                       android:textStyle="bold"
                        android:text="@string/username"
                        />
 
@@ -137,6 +140,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textStyle="bold"
+                       android:textColor="@color/black"
                        android:textSize="15sp"
                        android:layout_marginStart="8dp"
                        android:text="@string/mobile_number" />
@@ -184,6 +189,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textColor="@color/black"
+                       android:textStyle="bold"
                        android:textSize="15sp"
                        android:text="Email"
                        />
@@ -193,6 +200,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textColor="@color/black"
+                       android:textStyle="bold"
                        android:textSize="15sp"
 
                        android:layout_marginStart="8dp"
@@ -243,6 +252,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textColor="@color/black"
+                       android:textStyle="bold"
                        android:textSize="15sp"
                        android:text="State"
                        />
@@ -252,6 +263,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textStyle="bold"
+                       android:textColor="@color/black"
                        android:textSize="15sp"
                        android:layout_marginStart="8dp"
                        android:text="District" />
@@ -300,6 +313,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textStyle="bold"
+                       android:textColor="@color/black"
                        android:text="Address"
                        android:textSize="15sp"
                        />
@@ -316,10 +331,11 @@
 
                <Button
                    android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
                    android:id="@+id/btn_submit_basic"
                    android:background="@drawable/button_background"
                    android:layout_marginTop="@dimen/space_5"
+                   android:textSize="5pt"
                    android:layout_gravity="center"
                    android:text="@string/submit"
                    />
@@ -371,6 +387,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textStyle="bold"
+                       android:textColor="@color/black"
                        android:text="Facebook"
                        android:textSize="15sp"
                        />
@@ -397,6 +415,8 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:textStyle="bold"
+                       android:textColor="@color/black"
                        android:text="Whatsaap"
                        android:textSize="15sp"
                        />
@@ -413,10 +433,11 @@
 
                <Button
                    android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
                    android:id="@+id/btn_submit_social"
                    android:background="@drawable/button_background"
                    android:layout_marginTop="@dimen/space_5"
+                   android:textSize="5pt"
                    android:layout_gravity="center"
                    android:text="@string/submit"
                    />
@@ -473,10 +494,11 @@
 
                <Button
                    android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_height="35dp"
                    android:id="@+id/btn_submit_refer"
                    android:background="@drawable/button_background"
                    android:layout_marginTop="@dimen/space_5"
+                   android:textSize="5pt"
                    android:layout_gravity="center"
                    android:text="@string/submit"
                    />
@@ -523,10 +545,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
+            android:layout_marginHorizontal="@dimen/space_2"
             android:background="@drawable/border_black"
             android:layout_marginTop="@dimen/space_5"
-            android:padding="@dimen/space_2"
+            android:padding="@dimen/space_4"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -652,5 +674,7 @@
                     android:src="@drawable/twitter" />
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>

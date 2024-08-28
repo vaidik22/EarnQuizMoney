@@ -167,8 +167,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
-
     private void bottomNavigationHandler() {
         bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
 
@@ -185,16 +183,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     selectedFragment = new AddMoneyFragment();
                     topNavigation.setVisibility(View.GONE);
                     navigationViewToolbar.setVisibility(View.VISIBLE);
+                    toolbarTitle.setText("Add Money");
                 }
                 else if (item.getItemId() == R.id.navigation_my_quiz) {
                     selectedFragment = new RankingFragment();
                     topNavigation.setVisibility(View.GONE);
                     navigationViewToolbar.setVisibility(View.VISIBLE);
+                    toolbarTitle.setText("Quiz");
                 }
                 else if (item.getItemId() == R.id.navigation_profile) {
                     selectedFragment = new ProfileFragment();
                     topNavigation.setVisibility(View.GONE);
                     navigationViewToolbar.setVisibility(View.VISIBLE);
+                    toolbarTitle.setText("Profile");
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, selectedFragment).commit();
                 return true;

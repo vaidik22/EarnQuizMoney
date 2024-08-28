@@ -10,6 +10,7 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_PROFILE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.GET_QUESTION_BY_CONTEST;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.LOGIN;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.REFER_EARN;
+import static com.binplus.earnquizmoney.BaseURL.BaseURL.SEND_WITHDRAWAL_REQUEST;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.SIGN_UP;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.UPDATE_PROFILE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.VERIFY_OTP;
@@ -30,6 +31,7 @@ import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileModel;
 import com.binplus.earnquizmoney.Model.UpdateScoreModel;
 import com.binplus.earnquizmoney.Model.VerifyOtpModel;
+import com.binplus.earnquizmoney.Model.WithdrawModel;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -80,5 +82,10 @@ public interface Api {
 
     @POST(UPDATE_PROFILE)
     Call<UpdateProfileModel> getUpdateProfileApi(@Body JsonObject postData);
+
+    @POST(SEND_WITHDRAWAL_REQUEST)
+    Call<WithdrawModel> getWithdrawalRequestApi(@Body JsonObject postData);
+
+
 
 }

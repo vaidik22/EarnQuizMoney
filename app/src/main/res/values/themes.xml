@@ -27,6 +27,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
+    <style name="TextViewExtraSemBold" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/space_10</item>
+    </style>
 
     <style name="CustomButtonStyle"
         parent="Widget.MaterialComponents.Button">

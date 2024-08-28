@@ -68,6 +68,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/et_money"
                 android:layout_weight="1.5"
+                android:inputType="number"
                 android:paddingLeft="10dp"
                 android:hint="Enter Amount Here"
                 android:textSize="12sp"
@@ -92,12 +93,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rev_money"
-
+            android:visibility="gone"
             >
-
         </androidx.recyclerview.widget.RecyclerView>
 
-
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

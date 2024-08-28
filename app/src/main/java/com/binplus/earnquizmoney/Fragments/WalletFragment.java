@@ -67,7 +67,7 @@ public class WalletFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String balance = sharedPreferences.getString("wallet_balance", "0");
         available_balance.setText("Rs."+balance);
-        fetchTransactions();
+       // fetchTransactions();
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         return view;

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardBackgroundColor="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/space_8"
+            >
+            <ImageView
+                android:layout_width="@dimen/space_12"
+                android:layout_height="@dimen/space_12"
+                android:id="@+id/img_close_dialog"
+                android:src="@drawable/close"
+                android:layout_gravity="end"
+                app:tint="@color/red" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:textSize="@dimen/space_8"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Upload Profile Photo" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile_dialog"
+                app:civ_border_width="@dimen/space_1"
+                android:layout_marginTop="@dimen/space_2"
+                app:civ_border_color="@color/purpleButton"
+                android:src="@drawable/add_photo_user"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_35"/>
+
+
+            <LinearLayout
+
+                android:weightSum="2"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:id="@+id/tv_name_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/space_8"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Upload Photo" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="@string/choose_image_from_your_device_png_jpg_jpeg"
+                    android:maxLength="50"
+                    android:layout_gravity="start"
+                    android:textSize="@dimen/space_5"
+                    android:ellipsize="end"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    style="@style/TextViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_5">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/btn_upload"
+                        android:text="Upload"
+                        android:textSize="@dimen/space_5"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:background="@drawable/purple_button"
+                        android:layout_height="match_parent"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

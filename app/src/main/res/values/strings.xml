@@ -57,4 +57,9 @@
     <string name="submit">Submit</string>
     <string name="upi_details">UPI Details</string>
     <string name="bank_details">Bank Details</string>
+    <string name="name_on_bank_required">Name on bank is required</string>
+    <string name="bank_name_required">Bank name is required</string>
+    <string name="account_number_required">Account number is required</string>
+    <string name="ifsc_code_required">IFSC code is Required</string>
+    <string name="choose_image_from_your_device_png_jpg_jpeg">*choose image from your device(.png,.jpg,.jpeg)</string>
 </resources>
