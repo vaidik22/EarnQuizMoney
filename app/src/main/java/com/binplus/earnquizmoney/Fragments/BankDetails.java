@@ -69,6 +69,10 @@ public class BankDetails extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_bank_details, container, false);
         initView(view);
+        //set on the title textView on the toolbar of activity home
+
+        ((HomeActivity) getActivity()).setTitleBank();
+
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

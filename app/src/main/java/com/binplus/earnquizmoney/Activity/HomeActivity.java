@@ -217,6 +217,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void showBottomNavigation() {
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
+    public void setTitleBank(){
+        toolbarTitle.setText("Bank Details");
+    }
 
     public void hideBottomNavigation() {
         bottomNavigationView.setVisibility(View.GONE);
