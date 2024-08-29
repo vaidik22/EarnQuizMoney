@@ -19,13 +19,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.binplus.earnquizmoney.Fragments.QuestionsFragment;
-import com.binplus.earnquizmoney.Fragments.QuizDetailFragment;
+
 import com.binplus.earnquizmoney.Model.QuizDetailModel;
-import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.R;
 import com.squareup.picasso.Picasso;
 

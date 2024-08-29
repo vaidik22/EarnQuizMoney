@@ -87,7 +87,11 @@ public class WithdrawFragment extends Fragment {
         tv_add_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendWithdrawRequest();
+                if(et_money.getText().toString().isEmpty()) {
+                    showError("Please Enter Amount");
+                }else {
+                    sendWithdrawRequest();
+                }
             }
         });
         fetchTransactions();

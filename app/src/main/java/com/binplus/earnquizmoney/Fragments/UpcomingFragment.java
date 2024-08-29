@@ -1,39 +1,29 @@
 package com.binplus.earnquizmoney.Fragments;
 
-import static androidx.core.app.ActivityCompat.finishAffinity;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.binplus.earnquizmoney.Adapters.QuizAdapter;
-import com.binplus.earnquizmoney.Model.BannerModel;
 import com.binplus.earnquizmoney.Model.QuizModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
 import com.binplus.earnquizmoney.retrofit.RetrofitClient;
 import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
+
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -43,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomePage extends Fragment {
+public class UpcomingFragment extends Fragment {
 
     private Api apiInterface;
     private ImageSlider image_slider;
@@ -54,7 +44,7 @@ public class HomePage extends Fragment {
     LinearLayout no_upcoming_contest_layout;
     TextView tv_message;
 
-    public HomePage() {
+    public UpcomingFragment() {
     }
 
     @Override
@@ -65,53 +55,16 @@ public class HomePage extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_upcoming, container, false);
         initViews(view);
         progressBar.setVisibility(View.VISIBLE);
-        callImageSliderApi();
         callUpcomingQuizApi("upcoming");
-        recyclerView = view.findViewById(R.id.live_Quiz_recycler);
+        recyclerView = view.findViewById(R.id.upcoming_Quiz_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         quizModelItemList = new ArrayList<>();
         quizAdapter = new QuizAdapter(quizModelItemList, getActivity().getSupportFragmentManager());
         recyclerView.setAdapter(quizAdapter);
-//        getActivity().getOnBackPressedDispatcher().addCallback(getActivity(), new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                openDialogueExit();
-//            }
-//        });
         return view;
-    }
-    private void openDialogueExit() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setGravity(Gravity.CENTER);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        dialog.setContentView(R.layout.dialog_exit);
-        Button btn_exit,btn_stay;
-
-        btn_exit = dialog.findViewById(R.id.btn_exit);
-        btn_stay = dialog.findViewById(R.id.btn_stay);
-
-        btn_exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //close app
-                finishAffinity(getActivity());
-            }
-        });
-        btn_stay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-        dialog.show();
     }
 
     private void callUpcomingQuizApi(String type) {
@@ -122,9 +75,9 @@ public class HomePage extends Fragment {
 
         if (type.equalsIgnoreCase("live")) {
             params.addProperty("key", "1");
-        }  if (type.equalsIgnoreCase("upcoming")) {
+        } else if (type.equalsIgnoreCase("upcoming")) {
             params.addProperty("key", "0");
-        }  if (type.equalsIgnoreCase("past")) {
+        } else if (type.equalsIgnoreCase("past")) {
             params.addProperty("key", "2");
         }
         params.addProperty("user_id", authId);
@@ -174,36 +127,5 @@ public class HomePage extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         no_upcoming_contest_layout = view.findViewById(R.id.no_upcoming_contest_layout);
         tv_message = view.findViewById(R.id.tv_message);
-    }
-
-    private void callImageSliderApi() {
-        Call<BannerModel> call = apiInterface.getBannerApi();
-        call.enqueue(new Callback<BannerModel>() {
-            @Override
-            public void onResponse(Call<BannerModel> call, Response<BannerModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    BannerModel bannerModel = response.body();
-                    ArrayList<BannerModel.Datum> data = bannerModel.getData();
-                    if (bannerModel.isResponse() && data != null) {
-                        List<SlideModel> slideModels = new ArrayList<>();
-                        for (BannerModel.Datum datum : data) {
-                            String imageUrl = BASE_URL_IMAGE + datum.getImage();
-                            Log.d("HomePage", "Image URL: " + imageUrl);
-                            slideModels.add(new SlideModel(imageUrl, ScaleTypes.FIT));
-                        }
-                        image_slider.setImageList(slideModels, ScaleTypes.FIT);
-                    } else {
-                        Log.e("HomePage", "Response data is not valid");
-                    }
-                } else {
-                    Log.e("HomePage", "Response not successful or body is null");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BannerModel> call, Throwable t) {
-                Log.e("HomePage", "API call failed: " + t.getMessage());
-            }
-        });
     }
 }

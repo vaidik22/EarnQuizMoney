@@ -67,39 +67,11 @@ public class WalletFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String balance = sharedPreferences.getString("wallet_balance", "0");
         available_balance.setText("Rs."+balance);
-       // fetchTransactions();
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
-    private void fetchTransactions() {
-        transactionList.clear();
-        JsonObject postData = new JsonObject();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        String authId = sharedPreferences.getString("userId", "Default Id");
-        postData.addProperty("user_id", authId);
-        postData.addProperty("page", "1");
-        postData.addProperty("key", key);
 
-        Call<TransactionModel> call = apiInterface.getTransactionApi(postData);
-        call.enqueue(new Callback<TransactionModel>() {
-            @Override
-            public void onResponse(@NonNull Call<TransactionModel> call, @NonNull Response<TransactionModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    if (response.body().getData().isEmpty()) {
-
-                    } else {
-                        transactionList.addAll(response.body().getData());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<TransactionModel> call, @NonNull Throwable t) {
-                // Handle failure
-            }
-        });
-    }
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapterWallet(getChildFragmentManager());
         viewPagerAdapter.addFragment(new AllWalletTransFragment(), "All");

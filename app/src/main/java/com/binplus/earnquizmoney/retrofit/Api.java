@@ -20,6 +20,7 @@ import static com.binplus.earnquizmoney.BaseURL.BaseURL.getPrivacy;
 import com.binplus.earnquizmoney.Model.BannerModel;
 import com.binplus.earnquizmoney.Model.CommonModel;
 import com.binplus.earnquizmoney.Model.LoginModel;
+import com.binplus.earnquizmoney.Model.PastModel;
 import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.Model.QuestionModel;
 import com.binplus.earnquizmoney.Model.QuizDetailModel;
@@ -52,6 +53,9 @@ public interface Api {
 
     @POST(GET_CONTEST)
     Call<QuizModel> getContestApi(@Body JsonObject postData);
+
+    @POST(GET_CONTEST)
+    Call<PastModel> getContestApiPast(@Body JsonObject postData);
 
     @POST(REFER_EARN)
     Call<ReferModel> getReferApi(@Body JsonObject postData);

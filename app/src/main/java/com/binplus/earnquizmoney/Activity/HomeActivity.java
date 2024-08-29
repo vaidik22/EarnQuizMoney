@@ -1,14 +1,22 @@
 package com.binplus.earnquizmoney.Activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import com.binplus.earnquizmoney.Fragments.AddMoneyFragment;
 import com.binplus.earnquizmoney.Fragments.HomePage;
+import com.binplus.earnquizmoney.Fragments.MyQuizFragment;
 import com.binplus.earnquizmoney.Fragments.ProfileFragment;
 import com.binplus.earnquizmoney.Fragments.HowToPlayFragment;
 import com.binplus.earnquizmoney.Fragments.PrivacyPolicyFragment;
@@ -141,6 +150,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
+
+
     }
     private void fetchProfileDetails() {
         profileList.clear();
@@ -186,7 +197,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     toolbarTitle.setText("Add Money");
                 }
                 else if (item.getItemId() == R.id.navigation_my_quiz) {
-                    selectedFragment = new RankingFragment();
+                   // selectedFragment = new RankingFragment();
+                    selectedFragment = new MyQuizFragment();
                     topNavigation.setVisibility(View.GONE);
                     navigationViewToolbar.setVisibility(View.VISIBLE);
                     toolbarTitle.setText("Quiz");
@@ -288,6 +300,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, selectedFragment).commit();
         return true;
     }
+
+
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

@@ -2,12 +2,10 @@ package com.binplus.earnquizmoney.Fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
-import static com.binplus.earnquizmoney.BaseURL.BaseURL.upload_profile_image;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -36,10 +35,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.binplus.earnquizmoney.Activity.HomeActivity;
 import com.binplus.earnquizmoney.Activity.MainActivity;
 import com.binplus.earnquizmoney.Model.ProfileModel;
-import com.binplus.earnquizmoney.Model.UpdateProfileImageModel;
 import com.binplus.earnquizmoney.Model.UpdateProfileModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.retrofit.Api;
@@ -79,6 +76,8 @@ public class ProfileFragment extends Fragment {
     UpdateProfileModel updateProfileModel;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private CircleImageView img_profile_dialog;
+    private Bitmap selectedBitmap;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -154,12 +153,7 @@ public class ProfileFragment extends Fragment {
         editProfileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    openImagePicker();
-                } else {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
-                }
+                openImagePickerDialogue();
             }
         });
         btn_submit_basic.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +196,123 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-private void openLogoutDialog(){
+    private void openImagePickerDialogue() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.setContentView(R.layout.dialoge_edit_profile);
+
+        img_profile_dialog = dialog.findViewById(R.id.img_profile_dialog);
+        ImageView img_close_dialog = dialog.findViewById(R.id.img_close_dialog);
+        Button btn_upload = dialog.findViewById(R.id.btn_upload);
+
+        img_profile_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    openImagePicker();
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+                }
+            }
+        });
+
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedBitmap != null) {
+                    String base64Image = convertBitmapToBase64(selectedBitmap);
+                    iv_cir.setImageBitmap(selectedBitmap); // Set the selected image to the main ImageView
+                    updateProfile(base64Image); // Call API to update profile
+                    dialog.dismiss(); // Close the dialog
+                } else {
+                    Toast.makeText(getContext(), "Please select an image first", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        img_close_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private void openImagePicker() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryIntent.setType("image/*");
+        Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Image");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+
+        if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+        } else {
+            // If no camera app is available, show the gallery picker
+            startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
+            if (data != null) {
+                Bitmap bitmap = null;
+                if (data.getData() != null) {
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (data.getExtras() != null) {
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                }
+
+                if (bitmap != null) {
+                    selectedBitmap = bitmap;
+                    img_profile_dialog.setImageBitmap(selectedBitmap); // Set the image to the dialog's ImageView
+                }
+            }
+        }
+    }
+
+    private String convertBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                byteArrayOutputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            openImagePicker();
+        }
+    }
+
+    private void openLogoutDialog(){
     Dialog dialog;
     dialog = new Dialog (getActivity ());
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -325,70 +435,6 @@ private void openLogoutDialog(){
             // Handle the case where the link is not available
         }
     }
-    private void openImagePicker() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-        Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Image");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { cameraIntent });
-
-        if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
-        } else {
-            // If no camera app is available, show the gallery picker
-            startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-        }
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == getActivity().RESULT_OK) {
-            if (requestCode == PICK_IMAGE_REQUEST) {
-                if (data != null) {
-                    if (data.getData() != null) {
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
-                            iv_cir.setImageBitmap(bitmap);
-                            base64Image = convertBitmapToBase64(bitmap);
-                            updateProfile(base64Image);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else if (data.getExtras() != null) {
-                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                        iv_cir.setImageBitmap(bitmap);
-                        String base64Image = convertBitmapToBase64(bitmap);
-                        updateProfile(base64Image);
-                    }
-                }
-            }
-        }
-    }
-
-    private String convertBitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-            Log.d("Base64Image", "Base64 Image String Length: " + base64Image.length());
-
-            return base64Image;
-        } catch (Exception e) {
-            Log.e("Base64Error", "Error converting bitmap to Base64", e);
-            return null;
-        } finally {
-            try {
-                byteArrayOutputStream.close();
-            } catch (Exception e) {
-                Log.e("StreamCloseError", "Error closing ByteArrayOutputStream", e);
-            }
-        }
-    }
-
 
     private void fetchProfileDetails() {
         profileList.clear();
@@ -433,14 +479,20 @@ private void openLogoutDialog(){
                 if (response.isSuccessful() && response.body() != null) {
                     UpdateProfileModel updateProfileModel = response.body();
                     String message = updateProfileModel.getMessage();
-                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                    updatedProfileList.add(updateProfileModel.getData());
+                    if (updateProfileModel.isResponse()) {
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        fetchProfileDetails();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to update profile: " + message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Failed to update profile. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<UpdateProfileModel> call, @NonNull Throwable t) {
-                // Handle failure
+                Toast.makeText(getContext(), "An error occurred: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
