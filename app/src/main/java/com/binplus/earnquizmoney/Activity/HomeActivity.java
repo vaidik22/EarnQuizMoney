@@ -1,22 +1,13 @@
 package com.binplus.earnquizmoney.Activity;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,13 +20,11 @@ import com.binplus.earnquizmoney.Fragments.MyQuizFragment;
 import com.binplus.earnquizmoney.Fragments.ProfileFragment;
 import com.binplus.earnquizmoney.Fragments.HowToPlayFragment;
 import com.binplus.earnquizmoney.Fragments.PrivacyPolicyFragment;
-import com.binplus.earnquizmoney.Fragments.RankingFragment;
 import com.binplus.earnquizmoney.Fragments.ReferralFragment;
 import com.binplus.earnquizmoney.Fragments.SupportFragment;
 import com.binplus.earnquizmoney.Fragments.TermsAndConditionsFragment;
 import com.binplus.earnquizmoney.Fragments.WalletFragment;
 import com.binplus.earnquizmoney.Fragments.WithdrawFragment;
-import com.binplus.earnquizmoney.Fragments.WithdrawalWalletTransFragment;
 import com.binplus.earnquizmoney.Model.ProfileModel;
 import com.binplus.earnquizmoney.R;
 import com.binplus.earnquizmoney.common.Common;
