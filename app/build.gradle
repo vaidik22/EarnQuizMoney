@@ -74,6 +74,4 @@ dependencies {
     implementation 'com.razorpay:checkout:1.6.18'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
-
 }

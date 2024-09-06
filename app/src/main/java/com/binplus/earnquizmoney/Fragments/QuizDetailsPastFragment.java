@@ -120,9 +120,11 @@ public class QuizDetailsPastFragment extends Fragment implements DetailQuizAdapt
                     quizModelItemList.clear();
                     quizModelItemList.addAll(data);
                     quizAdapter.notifyDataSetChanged();
-                    List<QuizDetailModel.CurrentFill> currentFillList = extractCurrentFillList(data);
+
+                    // Extract only the "max fill" data
+                    List<QuizDetailModel.CurrentFill> maxFillList = extractMaxFillList(data);
                     quizList2.clear();
-                    quizList2.addAll(currentFillList);
+                    quizList2.addAll(maxFillList);
                     quizAdapterWinning.notifyDataSetChanged();
                 } else {
                     Log.e("QuizDetailFragment", "API call unsuccessful");
@@ -136,6 +138,22 @@ public class QuizDetailsPastFragment extends Fragment implements DetailQuizAdapt
             }
         });
     }
+
+    private List<QuizDetailModel.CurrentFill> extractMaxFillList(List<QuizDetailModel.Datum> datumList) {
+        List<QuizDetailModel.CurrentFill> maxFillList = new ArrayList<>();
+        for (QuizDetailModel.Datum datum : datumList) {
+            if (datum.getPoints() != null) {
+                for (QuizDetailModel.Point point : datum.getPoints()) {
+                    QuizDetailModel.CurrentFill currentFill = new QuizDetailModel.CurrentFill();
+                    currentFill.setTop_winner(point.getTop_winner());
+                    currentFill.setPoints(point.getPoints());
+                    maxFillList.add(currentFill);
+                }
+            }
+        }
+        return maxFillList;
+    }
+
 
     private List<QuizDetailModel.CurrentFill> extractCurrentFillList(List<QuizDetailModel.Datum> datumList) {
         List<QuizDetailModel.CurrentFill> currentFillList = new ArrayList<>();

@@ -4,6 +4,9 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.binplus.earnquizmoney.BaseURL.BaseURL.BASE_URL_IMAGE;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -106,6 +109,9 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initview(view);
         fetchProfileDetails();
+        layout_basic_edit.setVisibility(View.GONE);
+        layout_social_media.setVisibility(View.GONE);
+        layout_basic_refer.setVisibility(View.GONE);
         allClick();
         fetchConfigData();
         fetchConfigDataFaceBook();
@@ -118,34 +124,36 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (layout_basic_edit.getVisibility() == View.VISIBLE) {
-                    layout_basic_edit.setVisibility(View.GONE);
+                    collapseView(layout_basic_edit);
                     img_down_basic.animate().rotation(0).setDuration(300).start();
                 } else {
-                    layout_basic_edit.setVisibility(View.VISIBLE);
+                    expandView(layout_basic_edit);
                     img_down_basic.animate().rotation(180).setDuration(300).start();
                 }
             }
         });
+
         layout_social.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(layout_social_media.getVisibility() == View.VISIBLE){
-                    layout_social_media.setVisibility(View.GONE);
+                if (layout_social_media.getVisibility() == View.VISIBLE) {
+                    collapseView(layout_social_media);
                     img_down_social.animate().rotation(0).setDuration(300).start();
-                }else {
-                    layout_social_media.setVisibility(View.VISIBLE);
+                } else {
+                    expandView(layout_social_media);
                     img_down_social.animate().rotation(180).setDuration(300).start();
                 }
             }
         });
+
         layout_refer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(layout_basic_refer.getVisibility() == View.VISIBLE){
-                    layout_basic_refer.setVisibility(View.GONE);
+                if (layout_basic_refer.getVisibility() == View.VISIBLE) {
+                    collapseView(layout_basic_refer);
                     img_down_refer.animate().rotation(0).setDuration(300).start();
-                }else {
-                    layout_basic_refer.setVisibility(View.VISIBLE);
+                } else {
+                    expandView(layout_basic_refer);
                     img_down_refer.animate().rotation(180).setDuration(300).start();
                 }
             }
@@ -195,7 +203,46 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+    private void expandView(final View view) {
+        view.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = view.getMeasuredHeight();
 
+        view.getLayoutParams().height = 0;
+        view.setVisibility(View.VISIBLE);
+
+        ValueAnimator animator = ValueAnimator.ofInt(0, targetHeight);
+        animator.setDuration(300);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                view.getLayoutParams().height = (int) animation.getAnimatedValue();
+                view.requestLayout();
+            }
+        });
+        animator.start();
+    }
+
+    private void collapseView(final View view) {
+        final int initialHeight = view.getMeasuredHeight();
+
+        ValueAnimator animator = ValueAnimator.ofInt(initialHeight, 0);
+        animator.setDuration(300);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                view.getLayoutParams().height = (int) animation.getAnimatedValue();
+                view.requestLayout();
+            }
+        });
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setVisibility(View.GONE);
+            }
+        });
+        animator.start();
+    }
     private void openImagePickerDialogue() {
         Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

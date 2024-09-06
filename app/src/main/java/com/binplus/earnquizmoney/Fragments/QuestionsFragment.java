@@ -3,8 +3,10 @@ package com.binplus.earnquizmoney.Fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -351,24 +353,45 @@ public class QuestionsFragment extends Fragment {
         if (timer != null) {
             timer.cancel();
         }
-        timer = new CountDownTimer(30000, 1000) {
-            @Override
+        timer = new CountDownTimer(30000, 1000){
             public void onTick(long millisUntilFinished) {
+                // Update the timer UI
                 tvTimer.setText(String.valueOf(millisUntilFinished / 1000));
             }
 
-            @Override
             public void onFinish() {
-                tvTimer.setText("0");
-                if (currentQuestionIndex < questions.size() - 1) {
-                    currentQuestionIndex++;
-                    displayQuestion(questions.get(currentQuestionIndex));
-                    resetTimer();
-                } else {
-                    Toast.makeText(getContext(), "Quiz completed", Toast.LENGTH_SHORT).show();
-                }
+                // 2. Handle timer completion
+                showTimeExceededDialog();
             }
         }.start();
+    }
+
+    // 3. Display the dialog box
+    private void showTimeExceededDialog() {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Time's up!")
+                .setMessage("The time for this question has expired. Moving to the next question.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 4. Automatically move to the next question
+                        moveToNextQuestion();
+                    }
+                })
+                .show();
+    }
+
+    // 4. Method to move to the next question
+    private void moveToNextQuestion() {
+        // Logic to move to the next question
+        if (currentQuestionIndex < questions.size() - 1) {
+            currentQuestionIndex++;
+            displayQuestion(questions.get(currentQuestionIndex));
+            resetTimer();
+        } else {
+            Toast.makeText(getContext(), "Quiz completed", Toast.LENGTH_SHORT).show();
+            openDialogBoxCongrats();
+        }
     }
 
     private void resetTimer() {
