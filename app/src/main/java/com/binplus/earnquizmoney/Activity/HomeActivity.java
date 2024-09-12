@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 drawerLayout.closeDrawer(navigationView);
                 topNavigation.setVisibility(View.GONE);
-                navigationViewToolbar.setVisibility(View.VISIBLE);
+                navigationViewToolbar.setVisibility(View.GONE);
                 Fragment selectedFragment = new ProfileFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -195,7 +195,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 else if (item.getItemId() == R.id.navigation_profile) {
                     selectedFragment = new ProfileFragment();
                     topNavigation.setVisibility(View.GONE);
-                    navigationViewToolbar.setVisibility(View.VISIBLE);
+                    navigationViewToolbar.setVisibility(View.GONE);
                     toolbarTitle.setText("Profile");
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, selectedFragment).commit();

@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="@color/purpleBackground"
+            app:title="Profile"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
             <ImageView
                 android:layout_width="match_parent"
@@ -27,11 +28,49 @@
                 android:src="@drawable/purple_background"
                 app:layout_collapseMode="parallax" />
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@color/purpleBackground"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+                android:scaleY="-1"
+                android:visibility="visible"
+                android:background="@color/purpleBackground"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/back_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    app:civ_border_width="@dimen/space_1"
+                    android:id="@+id/iv_cir_1"
+                    android:layout_marginLeft="20dp"
+                    android:elevation="2dp"
+                    android:layout_centerHorizontal="true"
+                    app:civ_border_color="@color/white"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"/>
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_marginTop="-60dp"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 <RelativeLayout
@@ -48,6 +87,7 @@
             app:civ_border_width="@dimen/space_1"
             android:id="@+id/iv_cir"
             android:elevation="2dp"
+            android:src="@drawable/profile"
             android:layout_centerHorizontal="true"
             app:civ_border_color="@color/white"
             android:layout_width="@dimen/dimen_60"
